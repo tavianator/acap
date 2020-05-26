@@ -6,6 +6,7 @@ pub mod coords;
 pub mod distance;
 pub mod euclid;
 pub mod exhaustive;
+pub mod vp;
 
 mod util;
 
