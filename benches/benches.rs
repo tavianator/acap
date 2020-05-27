@@ -2,7 +2,7 @@
 
 use acap::euclid::Euclidean;
 use acap::exhaustive::ExhaustiveSearch;
-use acap::kd::KdTree;
+use acap::kd::{FlatKdTree, KdTree};
 use acap::vp::{FlatVpTree, VpTree};
 use acap::NearestNeighbors;
 
@@ -39,6 +39,7 @@ fn bench_from_iter(c: &mut Criterion) {
     group.bench_function("VpTree", |b| b.iter(|| VpTree::from_iter(points.clone())));
     group.bench_function("FlatVpTree", |b| b.iter(|| FlatVpTree::from_iter(points.clone())));
     group.bench_function("KdTree", |b| b.iter(|| KdTree::from_iter(points.clone())));
+    group.bench_function("FlatKdTree", |b| b.iter(|| FlatKdTree::from_iter(points.clone())));
     group.finish();
 }
 
@@ -50,12 +51,14 @@ fn bench_nearest_neighbors(c: &mut Criterion) {
     let vp_tree = VpTree::from_iter(points.clone());
     let flat_vp_tree = FlatVpTree::from_iter(points.clone());
     let kd_tree = KdTree::from_iter(points.clone());
+    let flat_kd_tree = FlatKdTree::from_iter(points.clone());
 
     let mut nearest = c.benchmark_group("NearestNeighbors::nearest");
     nearest.bench_function("ExhaustiveSearch", |b| b.iter(|| exhaustive.nearest(&target)));
     nearest.bench_function("VpTree", |b| b.iter(|| vp_tree.nearest(&target)));
     nearest.bench_function("FlatVpTree", |b| b.iter(|| flat_vp_tree.nearest(&target)));
     nearest.bench_function("KdTree", |b| b.iter(|| kd_tree.nearest(&target)));
+    nearest.bench_function("FlatKdTree", |b| b.iter(|| flat_kd_tree.nearest(&target)));
     nearest.finish();
 
     let mut nearest_within = c.benchmark_group("NearestNeighbors::nearest_within");
@@ -63,6 +66,7 @@ fn bench_nearest_neighbors(c: &mut Criterion) {
     nearest_within.bench_function("VpTree", |b| b.iter(|| vp_tree.nearest_within(&target, 0.1)));
     nearest_within.bench_function("FlatVpTree", |b| b.iter(|| flat_vp_tree.nearest_within(&target, 0.1)));
     nearest_within.bench_function("KdTree", |b| b.iter(|| kd_tree.nearest_within(&target, 0.1)));
+    nearest_within.bench_function("FlatKdTree", |b| b.iter(|| flat_kd_tree.nearest_within(&target, 0.1)));
     nearest_within.finish();
 
     let mut k_nearest = c.benchmark_group("NearestNeighbors::k_nearest");
@@ -70,6 +74,7 @@ fn bench_nearest_neighbors(c: &mut Criterion) {
     k_nearest.bench_function("VpTree", |b| b.iter(|| vp_tree.k_nearest(&target, 3)));
     k_nearest.bench_function("FlatVpTree", |b| b.iter(|| flat_vp_tree.k_nearest(&target, 3)));
     k_nearest.bench_function("KdTree", |b| b.iter(|| kd_tree.k_nearest(&target, 3)));
+    k_nearest.bench_function("FlatKdTree", |b| b.iter(|| flat_kd_tree.k_nearest(&target, 3)));
     k_nearest.finish();
 
     let mut k_nearest_within = c.benchmark_group("NearestNeighbors::k_nearest_within");
@@ -77,6 +82,7 @@ fn bench_nearest_neighbors(c: &mut Criterion) {
     k_nearest_within.bench_function("VpTree", |b| b.iter(|| vp_tree.k_nearest_within(&target, 3, 0.1)));
     k_nearest_within.bench_function("FlatVpTree", |b| b.iter(|| flat_vp_tree.k_nearest_within(&target, 3, 0.1)));
     k_nearest_within.bench_function("KdTree", |b| b.iter(|| kd_tree.k_nearest_within(&target, 3, 0.1)));
+    k_nearest_within.bench_function("FlatKdTree", |b| b.iter(|| flat_kd_tree.k_nearest_within(&target, 3, 0.1)));
     k_nearest_within.finish();
 }
 
