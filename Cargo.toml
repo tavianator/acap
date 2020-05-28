@@ -12,3 +12,10 @@ categories = ["algorithms", "data-structures"]
 [dependencies]
 num-traits = "0.2.11"
 rand = "0.7.3"
+
+[dev-dependencies]
+criterion = "0.3"
+
+[[bench]]
+name = "benches"
+harness = false
