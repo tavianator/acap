@@ -4,6 +4,8 @@
 
 pub mod coords;
 pub mod distance;
+pub mod euclid;
 
 pub use coords::Coordinates;
 pub use distance::{Distance, Metric, Proximity};
+pub use euclid::{euclidean_distance, Euclidean, EuclideanDistance};
