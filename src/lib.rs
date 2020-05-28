@@ -1,6 +1,94 @@
 //! As Close As Possible — [nearest neighbor search] in Rust.
 //!
+//! # Overview
+//!
+//! The notion of distances between points is captured by the [Proximity] trait.  Its [`distance()`]
+//! method returns a [Distance], from which the actual numerical distance may be retrieved with
+//! [`value()`].  These layers of abstraction allow `acap` to work with generically with different
+//! distance functions over different types.
+//!
+//! There are no restrictions on the distances computed by a [Proximity].  For example, they don't
+//! have to be symmetric, subadditive, or even positive.  Implementations that do have these
+//! desirable properties will additionally implement the [Metric] marker trait.  This distinction
+//! allows `acap` to support a wide variety of useful metric and non-metric distances.
+//!
+//! As a concrete example, consider `Euclidean<[i32; 2]>`.  The [Euclidean] wrapper equips any type
+//! that has [coordinates] with the [Euclidean distance] function as its Proximity implementation:
+//!
+//!     use acap::distance::Proximity;
+//!     use acap::euclid::Euclidean;
+//!
+//!     let a = Euclidean([3, 4]);
+//!     let b = Euclidean([7, 7]);
+//!     assert_eq!(a.distance(&b), 5);
+//!
+//! In this case, `distance()` doesn't return a number directly; as an optimization, it returns a
+//! [EuclideanDistance] wrapper.  This wrapper stores the squared value of the distance, to avoid
+//! computing square roots until absolutely necessary.  Still, it transparently supports comparisons
+//! with numerical values:
+//!
+//!     # use acap::distance::Proximity;
+//!     # use acap::euclid::Euclidean;
+//!     # let a = Euclidean([3, 4]);
+//!     # let b = Euclidean([7, 7]);
+//!     use acap::distance::Distance;
+//!
+//!     let d = a.distance(&b);
+//!     assert!(d > 4 && d < 6);
+//!     assert_eq!(d, 5);
+//!     assert_eq!(d.value(), 5.0f32);
+//!
+//! For finding the nearest neighbors to a point from a set of other points, the [NearestNeighbors]
+//! trait provides a uniform interface to [many different similarity search data structures].  One
+//! such structure is the [vantage-point tree], available in `acap` as [VpTree]:
+//!
+//!     # use acap::euclid::Euclidean;
+//!     use acap::vp::VpTree;
+//!     use acap::NearestNeighbors;
+//!
+//!     let tree = VpTree::balanced(vec![
+//!         Euclidean([3, 4]),
+//!         Euclidean([5, 12]),
+//!         Euclidean([8, 15]),
+//!         Euclidean([7, 24]),
+//!     ]);
+//!
+//! [VpTree] implements [NearestNeighbors], which has a [`nearest()`] method that returns an
+//! optional [Neighbor].  The [Neighbor] struct holds the actual neighbor it found, and the distance
+//! it was from the target:
+//!
+//!     # use acap::euclid::Euclidean;
+//!     # use acap::vp::VpTree;
+//!     # use acap::NearestNeighbors;
+//!     # let tree = VpTree::balanced(
+//!     #     vec![Euclidean([3, 4]), Euclidean([5, 12]), Euclidean([8, 15]), Euclidean([7, 24])]
+//!     # );
+//!     let nearest = tree.nearest(&[7, 7]).unwrap();
+//!     assert_eq!(nearest.item, &Euclidean([3, 4]));
+//!     assert_eq!(nearest.distance, 5);
+//!
+//! [NearestNeighbors] also provides the [`nearest_within()`], [`k_nearest()`], and
+//! [`k_nearest_within()`] methods which find up to `k` neighbors within a possible threshold.
+//!
+//! It can be expensive to compute nearest neighbors exactly, especially in high dimensions.
+//! For performance reasons, [NearestNeighbors] implementations are allowed to return approximate
+//! results.  Many implementations have a speed/accuracy tradeoff which can be tuned.  Those
+//! implementations which always return exact results will also implement the [ExactNeighbors]
+//! marker trait.  For example, a [VpTree] will be exact when the [Proximity] function is a
+//! [Metric].
+//!
 //! [nearest neighbor search]: https://en.wikipedia.org/wiki/Nearest_neighbor_search
+//! [`distance()`]: Proximity#tymethod.distance
+//! [`value()`]: Distance#method.value
+//! [coordinates]: Coordinates
+//! [Euclidean distance]: https://en.wikipedia.org/wiki/Euclidean_distance
+//! [many different similarity search data structures]: NearestNeighbors#implementors
+//! [vantage-point tree]: https://en.wikipedia.org/wiki/Vantage-point_tree
+//! [VpTree]: vp::VpTree
+//! [`nearest()`]: NearestNeighbors#method.nearest
+//! [`k_nearest()`]: NearestNeighbors#method.k_nearest
+//! [`nearest_within()`]: NearestNeighbors#method.nearest_within
+//! [`k_nearest_within()`]: NearestNeighbors#method.k_nearest_within
 
 pub mod coords;
 pub mod distance;
