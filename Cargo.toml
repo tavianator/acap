@@ -4,6 +4,7 @@ version = "0.1.0"
 authors = ["Tavian Barnes <tavianator@tavianator.com>"]
 edition = "2018"
 description = "A principled API for nearest neighbor search in both metric and non-metric spaces"
+readme = "README.md"
 repository = "https://github.com/tavianator/acap"
 license = "MIT"
 keywords = ["ann", "knn", "nearest-neighbors"]
