@@ -5,6 +5,7 @@
 pub mod coords;
 pub mod distance;
 pub mod euclid;
+pub mod exhaustive;
 
 pub use coords::Coordinates;
 pub use distance::{Distance, Metric, Proximity};
@@ -303,6 +304,12 @@ pub trait ExactNeighbors<K: Proximity<V>, V = K>: NearestNeighbors<K, V> {}
 pub mod tests {
     use super::*;
 
+    use crate::exhaustive::ExhaustiveSearch;
+
+    use rand::prelude::*;
+
+    use std::iter::FromIterator;
+
     type Point = Euclidean<[f32; 3]>;
 
     /// Test a [NearestNeighbors] implementation.
@@ -313,6 +320,7 @@ pub mod tests {
     {
         test_empty(&from_iter);
         test_pythagorean(&from_iter);
+        test_random_points(&from_iter);
     }
 
     fn test_empty<T, F>(from_iter: &F)
@@ -383,6 +391,30 @@ pub mod tests {
                 Neighbor::new(&Euclidean([3.0, 4.0, 0.0]), 5.0),
                 Neighbor::new(&Euclidean([2.0, 3.0, 6.0]), 7.0),
             ]
+        );
+    }
+
+    fn test_random_points<T, F>(from_iter: &F)
+    where
+        T: NearestNeighbors<Point>,
+        F: Fn(Vec<Point>) -> T,
+    {
+        let mut points = Vec::new();
+        for _ in 0..256 {
+            points.push(Euclidean([random(), random(), random()]));
+        }
+
+        let index = from_iter(points.clone());
+        let eindex = ExhaustiveSearch::from_iter(points.clone());
+
+        let target = Euclidean([random(), random(), random()]);
+
+        assert_eq!(
+            index.k_nearest(&target, 3),
+            eindex.k_nearest(&target, 3),
+            "target: {:?}, points: {:#?}",
+            target,
+            points,
         );
     }
 }
