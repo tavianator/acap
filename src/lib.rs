@@ -7,6 +7,8 @@ pub mod distance;
 pub mod euclid;
 pub mod exhaustive;
 
+mod util;
+
 pub use coords::Coordinates;
 pub use distance::{Distance, Metric, Proximity};
 pub use euclid::{euclidean_distance, Euclidean, EuclideanDistance};
