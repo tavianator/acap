@@ -90,6 +90,7 @@
 //! [`nearest_within()`]: NearestNeighbors#method.nearest_within
 //! [`k_nearest_within()`]: NearestNeighbors#method.k_nearest_within
 
+pub mod chebyshev;
 pub mod coords;
 pub mod distance;
 pub mod euclid;
