@@ -1,6 +1,8 @@
 `acap`
 ======
 
+[![crates.io](https://img.shields.io/crates/v/acap.svg)](https://crates.io/crates/acap)
+[![Documentation](https://docs.rs/acap/badge.svg)](https://docs.rs/acap)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/tavianator/knn/blob/master/LICENSE)
 [![Build Status](https://travis-ci.com/tavianator/acap.svg?branch=master)](https://travis-ci.com/tavianator/acap)
 
