@@ -95,6 +95,7 @@ pub mod coords;
 pub mod distance;
 pub mod euclid;
 pub mod exhaustive;
+pub mod hamming;
 pub mod kd;
 pub mod taxi;
 pub mod vp;
