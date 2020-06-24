@@ -3,7 +3,7 @@ name = "acap"
 version = "0.1.0"
 authors = ["Tavian Barnes <tavianator@tavianator.com>"]
 edition = "2018"
-description = "A principled API for nearest neighbor search in both metric and non-metric spaces"
+description = "As Close As Possible — nearest neighbor search in Rust."
 readme = "README.md"
 repository = "https://github.com/tavianator/acap"
 license = "MIT"
@@ -12,10 +12,10 @@ categories = ["algorithms", "data-structures"]
 
 [dependencies]
 num-traits = "0.2.11"
-rand = "0.7.3"
 
 [dev-dependencies]
 criterion = "0.3"
+rand = "0.7.3"
 
 [[bench]]
 name = "benches"
