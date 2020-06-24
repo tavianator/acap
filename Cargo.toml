@@ -11,10 +11,10 @@ keywords = ["ann", "knn", "nearest-neighbors"]
 categories = ["algorithms", "data-structures"]
 
 [dependencies]
-num-traits = "0.2.11"
+num-traits = "0.2.12"
 
 [dev-dependencies]
-criterion = "0.3"
+criterion = "0.3.2"
 rand = "0.7.3"
 
 [[bench]]
