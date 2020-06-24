@@ -97,6 +97,7 @@ pub mod euclid;
 pub mod exhaustive;
 pub mod hamming;
 pub mod kd;
+pub mod lp;
 pub mod taxi;
 pub mod vp;
 
