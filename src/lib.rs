@@ -92,6 +92,7 @@
 
 pub mod chebyshev;
 pub mod coords;
+pub mod cos;
 pub mod distance;
 pub mod euclid;
 pub mod exhaustive;
