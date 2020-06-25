@@ -156,7 +156,7 @@ where
 pub struct EuclideanDistance<T>(T);
 
 impl<T: Value> EuclideanDistance<T> {
-    /// Createa a `EuclideanDistance` from an already-squared value.
+    /// Creates a `EuclideanDistance` from an already-squared value.
     pub fn from_squared(value: T) -> Self {
         debug_assert!(!value.is_negative());
         Self(value)
