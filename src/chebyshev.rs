@@ -1,4 +1,4 @@
-//! Chebyshev distance.
+//! [Chebyshev distance](https://en.wikipedia.org/wiki/Chebyshev_distance).
 
 use crate::coords::{Coordinates, CoordinateMetric, CoordinateProximity};
 use crate::distance::{Metric, Proximity};

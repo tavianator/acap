@@ -1,4 +1,4 @@
-//! L<sup>p</sup> spaces.
+//! [L<sup>p</sup> spaces](https://en.wikipedia.org/wiki/Lp_space).
 
 use crate::coords::Coordinates;
 

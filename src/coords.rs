@@ -1,4 +1,4 @@
-//! Coordinate spaces.
+//! [Coordinate spaces](https://en.wikipedia.org/wiki/Cartesian_coordinate_system).
 
 use crate::distance::{Distance, Value};
 

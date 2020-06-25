@@ -1,4 +1,4 @@
-//! Taxicab (Manhattan) distance.
+//! [Taxicab (Manhattan) distance](https://en.wikipedia.org/wiki/Taxicab_geometry).
 
 use crate::coords::{Coordinates, CoordinateMetric, CoordinateProximity};
 use crate::distance::{Metric, Proximity};

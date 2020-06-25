@@ -1,4 +1,4 @@
-//! Vantage-point trees.
+//! [Vantage-point trees](https://en.wikipedia.org/wiki/Vantage-point_tree).
 
 use crate::distance::{DistanceValue, Metric, Proximity};
 use crate::util::Ordered;

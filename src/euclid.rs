@@ -1,4 +1,4 @@
-//! Euclidean space.
+//! [Euclidean space](https://en.wikipedia.org/wiki/Euclidean_space).
 
 use crate::coords::{Coordinates, CoordinateMetric, CoordinateProximity};
 use crate::distance::{Distance, Metric, Proximity, Value};

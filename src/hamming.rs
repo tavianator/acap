@@ -1,4 +1,4 @@
-//! Hamming space.
+//! [Hamming space](https://en.wikipedia.org/wiki/Hamming_space).
 
 use crate::distance::{Metric, Proximity};
 
