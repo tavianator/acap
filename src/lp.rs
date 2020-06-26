@@ -1,4 +1,4 @@
-//! [L<sup>p</sup> spaces](https://en.wikipedia.org/wiki/Lp_space).
+//! [`$L^p$` spaces](https://en.wikipedia.org/wiki/Lp_space).
 
 use crate::coords::Coordinates;
 
@@ -25,9 +25,16 @@ pub use crate::chebyshev::Chebyshev as Linf;
 /// Compute the L<sup>∞</sup> distance between two points.
 pub use crate::chebyshev::chebyshev_distance as linf_distance;
 
-/// Compute the [L<sup>p</sup> distance] between two points.
+/// Compute the [`$L^p$` distance] between two points.
 ///
-/// [L<sup>p</sup> distance]: https://en.wikipedia.org/wiki/Lp_space
+/// ```math
+/// \begin{aligned}
+/// \mathrm{lp\_distance}(p, x, y) &= \|x - y\|_p \\
+/// &= \left( \sum_i |x_i - y_i|^p \right)^{1/p}
+/// \end{aligned}
+/// ```
+///
+/// [`$L^p$` distance]: https://en.wikipedia.org/wiki/Lp_space
 pub fn lp_distance<T, U>(p: T::Value, x: T, y: U) -> T::Value
 where
     T: Coordinates,

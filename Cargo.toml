@@ -20,3 +20,6 @@ rand = "0.7.3"
 [[bench]]
 name = "benches"
 harness = false
+
+[package.metadata.docs.rs]
+rustdoc-args = ["--html-in-header", "katex-header.html"]

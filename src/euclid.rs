@@ -47,6 +47,13 @@ impl<T: Coordinates> Coordinates for Euclidean<T> {
 }
 
 /// Compute the Euclidean distance between two points.
+///
+/// ```math
+/// \begin{aligned}
+/// \mathrm{euclidean\_distance}(x, y) &= \|x - y\|_2 \\
+/// &= \sqrt{\sum_i (x_i - y_i)^2}
+/// \end{aligned}
+/// ```
 pub fn euclidean_distance<T, U>(x: T, y: U) -> EuclideanDistance<T::Value>
 where
     T: Coordinates,

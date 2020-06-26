@@ -25,6 +25,13 @@ impl<T> Hamming<T> {
 }
 
 /// Compute the Hamming distance between two integers.
+///
+/// ```math
+/// \begin{aligned}
+/// \mathrm{hamming\_distance}(x, y) &= |\{i \mid x_i \ne y_i\}| \\
+/// &= \mathrm{popcount}(x \wedge y)
+/// \end{aligned}
+/// ```
 pub fn hamming_distance<T: PrimInt>(x: T, y: T) -> i32 {
     (x ^ y).count_ones() as i32
 }

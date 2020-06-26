@@ -44,6 +44,13 @@ impl<T: Coordinates> Coordinates for Chebyshev<T> {
 }
 
 /// Compute the Chebyshev distance between two points.
+///
+/// ```math
+/// \begin{aligned}
+/// \mathrm{chebyshev\_distance}(x, y) &= \|x - y\|_\infty \\
+/// &= \max_i |x_i - y_i|
+/// \end{aligned}
+/// ```
 pub fn chebyshev_distance<T, U>(x: T, y: U) -> T::Value
 where
     T: Coordinates,

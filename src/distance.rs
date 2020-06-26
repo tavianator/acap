@@ -15,11 +15,15 @@ impl<T: Num + NumAssign + Signed + Copy + PartialOrd> Value for T {}
 /// An implementation may be an actual numerical distance, or an [order embedding] of the true
 /// distance.  This allows for optimizations whenever distances can be compared more efficiently
 /// than their exact values can be computed, as is the case for [Euclidean distance].  Implementors
-/// must satisfy, for all distances `x` and `y`:
+/// must satisfy, for all distances `$x$` and `$y$`:
 ///
-/// * `x < y` iff `x.value() < y.value()`
-/// * `x.value() < y` iff `x.value() < y.value()`
-/// * `x < y.value()` iff `x.value() < y.value()`
+/// ```math
+/// \begin{aligned}
+/// x.\mathrm{value}() &< y.\mathrm{value}() & &\iff& x.\mathrm{value}() &< y \\
+/// & & &\iff& x &< y.\mathrm{value}() \\
+/// & & &\iff& x &< y
+/// \end{aligned}
+/// ```
 ///
 /// [order embedding]: https://en.wikipedia.org/wiki/Order_embedding
 /// [Euclidean distance]: crate::euclid::EuclideanDistance
@@ -79,19 +83,26 @@ impl<'k, 'v, K: Proximity<V>, V> Proximity<&'v V> for &'k K {
 
 /// Marker trait for [metric spaces].
 ///
-/// A metric must be symmetric and obey the [triangle inequality].  More precisely, let `x`, `y`,
-/// and `z` be any elements of a metric space, and let `d(x, y) = x.distance(y).value()`.  Then the
-/// following rules must hold:
+/// A metric must be symmetric and obey the [triangle inequality].  More precisely, let `$x$`,
+/// `$y$`, and `$z$` be any elements of a metric space, and let
+/// `$d(x, y) = x.\mathrm{distance}(y).\mathrm{value}()$`.  Then the following rules must hold:
 ///
-/// * `d(x, x) == 0`,
-/// * `d(x, y) == d(y, z)` (symmetry), and
-/// * `d(x, z) <= d(x, y) + d(y, z)` (triangle inequality).
+/// ```math
+/// \begin{aligned}
+/// d(x, x) &= 0 \\
+/// d(x, y) &= d(y, x) & \text{(symmetry)} \\
+/// d(x, z) &\le d(x, y) + d(y, z) & \text{(triangle inequality)}
+/// \end{aligned}
+/// ```
 ///
 /// Those conditions also imply the following condition:
 ///
-/// * `d(x, y) >= 0` (non-negativity)
-///
-/// Because we do not prohibit `d(x, y) == 0` for distinct `x` and `y`, these spaces are more
+/// ```math
+/// \begin{aligned}
+/// d(x, y) &\ge \rlap{0}\phantom{d(x, y) + d(y, z)} & \text{\phantom{(triangle inequality)}\llap{(non-negativity)}}
+/// \end{aligned}
+/// ```
+/// Because we do not prohibit `$d(x, y) = 0$` for distinct `$x$` and `$y$`, these spaces are more
 /// properly known as [pseudometric spaces].  This distinction is usually unimportant.
 ///
 /// [metric spaces]: https://en.wikipedia.org/wiki/Metric_space

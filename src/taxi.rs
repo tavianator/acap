@@ -44,6 +44,13 @@ impl<T: Coordinates> Coordinates for Taxicab<T> {
 }
 
 /// Compute the taxicab distance between two points.
+///
+/// ```math
+/// \begin{aligned}
+/// \mathrm{taxicab\_distance}(x, y) &= \|x - y\|_1 \\
+/// &= \sum_i |x_i - y_i|
+/// \end{aligned}
+/// ```
 pub fn taxicab_distance<T, U>(x: T, y: U) -> T::Value
 where
     T: Coordinates,

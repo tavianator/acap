@@ -12,8 +12,16 @@ use std::cmp::Ordering;
 ///
 /// Use [cosine_distance] instead if you are implementing [Proximity::distance()].
 ///
+/// ```math
+/// \begin{aligned}
+/// \mathrm{cosine\_similarity}(x, y) &= \frac{x \cdot y}{\|x\| \|y\|} \\
+/// &= \frac{\sum_i x_i y_i}{\sqrt{\sum_i x_i^2} \sqrt{\sum_i y_i^2}} \\
+/// &= \cos \theta
+/// \end{aligned}
+/// ```
+///
 /// [cosine *similarity*]: https://en.wikipedia.org/wiki/Cosine_similarity
-/// [Proximity::distance()]: Proximity#method.distance
+/// [Proximity::distance()]: Proximity#tymethod.distance
 pub fn cosine_similarity<T, U>(x: T, y: U) -> T::Value
 where
     T: Coordinates,
@@ -38,6 +46,15 @@ where
 }
 
 /// Compute the [cosine distance] between two points.
+///
+/// ```math
+/// \begin{aligned}
+/// \mathrm{cosine\_distance}(x, y) &= 1 - \mathrm{cosine\_similarity}(x, y) \\
+/// &= 1 - \frac{x \cdot y}{\|x\| \|y\|} \\
+/// &= 1 - \frac{\sum_i x_i y_i}{\sqrt{\sum_i x_i^2} \sqrt{\sum_i y_i^2}} \\
+/// &= 1 - \cos \theta
+/// \end{aligned}
+/// ```
 ///
 /// [cosine distance]: https://en.wikipedia.org/wiki/Cosine_similarity
 pub fn cosine_distance<T, U>(x: T, y: U) -> T::Value
@@ -97,8 +114,16 @@ where
 ///
 /// Use [prenorm_cosine_distance] instead if you are implementing [Proximity::distance()].
 ///
+/// ```math
+/// \begin{aligned}
+/// \mathrm{prenorm\_cosine\_similarity}(x, y) &= x \cdot y \\
+/// &= \sum_i x_i y_i \\
+/// &= \cos \theta
+/// \end{aligned}
+/// ```
+///
 /// [cosine *similarity*]: https://en.wikipedia.org/wiki/Cosine_similarity
-/// [`Proximity::distance()`]: Proximity#method.distance
+/// [`Proximity::distance()`]: Proximity#tymethod.distance
 pub fn prenorm_cosine_similarity<T, U>(x: T, y: U) -> T::Value
 where
     T: Coordinates,
@@ -117,6 +142,15 @@ where
 }
 
 /// Compute the [cosine distance] between two pre-normalized (unit magnitude) points.
+///
+/// ```math
+/// \begin{aligned}
+/// \mathrm{prenorm\_cosine\_distance}(x, y) &= 1 - \mathrm{prenorm\_cosine\_similarity}(x, y) \\
+/// &= 1 - x \cdot y \\
+/// &= 1 - \sum_i x_i y_i \\
+/// &= 1 - \cos \theta
+/// \end{aligned}
+/// ```
 ///
 /// [cosine distance]: https://en.wikipedia.org/wiki/Cosine_similarity
 pub fn prenorm_cosine_distance<T, U>(x: T, y: U) -> T::Value
@@ -174,6 +208,15 @@ where
 }
 
 /// Compute the [angular distance] between two points.
+///
+/// ```math
+/// \begin{aligned}
+/// \mathrm{angular\_distance}(x, y) &= \arccos(\mathrm{cosine\_similarity}(x, y)) \\
+/// &= \arccos \left( \frac{x \cdot y}{\|x\| \|y\|} \right) \\
+/// &= \arccos \left( \frac{\sum_i x_i y_i}{\sqrt{\sum_i x_i^2} \sqrt{\sum_i y_i^2}} \right) \\
+/// &= \theta
+/// \end{aligned}
+/// ```
 ///
 /// [angular distance]: https://en.wikipedia.org/wiki/Cosine_similarity#Angular_distance_and_similarity
 pub fn angular_distance<T, U>(x: T, y: U) -> AngularDistance<T::Value>
@@ -256,6 +299,15 @@ where
 {}
 
 /// Compute the [angular distance] between two points.
+///
+/// ```math
+/// \begin{aligned}
+/// \mathrm{prenorm\_angular\_distance}(x, y) &= \arccos(\mathrm{prenorm\_cosine\_similarity}(x, y)) \\
+/// &= \arccos(x \cdot y) \\
+/// &= \arccos \left( \sum_i x_i y_i \right) \\
+/// &= \theta
+/// \end{aligned}
+/// ```
 ///
 /// [angular distance]: https://en.wikipedia.org/wiki/Cosine_similarity#Angular_distance_and_similarity
 pub fn prenorm_angular_distance<T, U>(x: T, y: U) -> AngularDistance<T::Value>
