@@ -8,7 +8,7 @@ use num_traits::PrimInt;
 ///
 /// This wrapper equips any integer with the [Hamming distance] metric.
 ///
-/// [Hamming distance]: https://en.wikipedia.org/wiki/Hamming_distance
+/// [Hamming distance]: hamming_distance
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub struct Hamming<T>(pub T);
 
@@ -24,7 +24,7 @@ impl<T> Hamming<T> {
     }
 }
 
-/// Compute the Hamming distance between two integers.
+/// Compute the [Hamming distance] between two integers.
 ///
 /// ```math
 /// \begin{aligned}
@@ -32,6 +32,8 @@ impl<T> Hamming<T> {
 /// &= \mathrm{popcount}(x \wedge y)
 /// \end{aligned}
 /// ```
+///
+/// [Hamming distance]: https://en.wikipedia.org/wiki/Hamming_distance
 pub fn hamming_distance<T: PrimInt>(x: T, y: T) -> i32 {
     (x ^ y).count_ones() as i32
 }

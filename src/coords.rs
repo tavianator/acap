@@ -24,7 +24,7 @@ pub trait Coordinates {
     }
 }
 
-/// [Coordinates] implementation for slices.
+/// [`Coordinates`] implementation for slices.
 impl<T: Value> Coordinates for [T] {
     type Value = T;
 
@@ -37,7 +37,7 @@ impl<T: Value> Coordinates for [T] {
     }
 }
 
-/// [Coordinates] implementation for arrays.
+/// [`Coordinates`] implementation for arrays.
 macro_rules! array_coordinates {
     ($n:expr) => (
         impl<T: Value> Coordinates for [T; $n] {
@@ -63,7 +63,7 @@ array_coordinates!(6);
 array_coordinates!(7);
 array_coordinates!(8);
 
-/// [Coordinates] implemention for vectors.
+/// [`Coordinates`] implemention for vectors.
 impl<T: Value> Coordinates for Vec<T> {
     type Value = T;
 
@@ -76,7 +76,7 @@ impl<T: Value> Coordinates for Vec<T> {
     }
 }
 
-/// Blanket [Coordinates] implementation for references.
+/// Blanket [`Coordinates`] implementation for references.
 impl<T: ?Sized + Coordinates> Coordinates for &T {
     type Value = T::Value;
 
@@ -97,7 +97,7 @@ pub trait CoordinateProximity<T> {
     fn distance_to_coords(&self, coords: &[T]) -> Self::Distance;
 }
 
-/// Blanket [CoordinateProximity] implementation for references.
+/// Blanket [`CoordinateProximity`] implementation for references.
 impl<T: CoordinateProximity<U>, U> CoordinateProximity<U> for &T {
     type Distance = T::Distance;
 
@@ -109,5 +109,5 @@ impl<T: CoordinateProximity<U>, U> CoordinateProximity<U> for &T {
 /// Marker trait for coordinate proximities that are [metrics][crate::distance::Metric].
 pub trait CoordinateMetric<T>: CoordinateProximity<T> {}
 
-/// Blanket [CoordinateMetric] implementation for references.
+/// Blanket [`CoordinateMetric`] implementation for references.
 impl<T: CoordinateMetric<U>, U> CoordinateMetric<U> for &T {}

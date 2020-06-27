@@ -12,8 +12,8 @@ use std::convert::TryFrom;
 ///
 /// This wrapper equips any [coordinate space] with the [Euclidean distance] metric.
 ///
-/// [coordinate space]: [Coordinates]
-/// [Euclidean distance]: https://en.wikipedia.org/wiki/Euclidean_distance
+/// [coordinate space]: Coordinates
+/// [Euclidean distance]: euclidean_distance
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub struct Euclidean<T>(pub T);
 
@@ -46,7 +46,7 @@ impl<T: Coordinates> Coordinates for Euclidean<T> {
     }
 }
 
-/// Compute the Euclidean distance between two points.
+/// Compute the [Euclidean distance] between two points.
 ///
 /// ```math
 /// \begin{aligned}
@@ -54,6 +54,8 @@ impl<T: Coordinates> Coordinates for Euclidean<T> {
 /// &= \sqrt{\sum_i (x_i - y_i)^2}
 /// \end{aligned}
 /// ```
+///
+/// [Euclidean distance]: https://en.wikipedia.org/wiki/Euclidean_distance
 pub fn euclidean_distance<T, U>(x: T, y: U) -> EuclideanDistance<T::Value>
 where
     T: Coordinates,
@@ -175,7 +177,7 @@ impl<T: Value> EuclideanDistance<T> {
     }
 }
 
-/// Error type for failed conversions from negative numbers to [EuclideanDistance].
+/// Error type for failed conversions from negative numbers to [`EuclideanDistance`].
 #[derive(Debug)]
 pub struct NegativeDistanceError;
 

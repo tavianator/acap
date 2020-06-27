@@ -9,8 +9,8 @@ use num_traits::{zero, Signed};
 ///
 /// This wrapper equips any [coordinate space] with the [Chebyshev distance] metric.
 ///
-/// [coordinate space]: [Coordinates]
-/// [Chebyshev distance]: https://en.wikipedia.org/wiki/Chebyshev_distance
+/// [coordinate space]: Coordinates
+/// [Chebyshev distance]: chebyshev_distance
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub struct Chebyshev<T>(pub T);
 
@@ -43,7 +43,7 @@ impl<T: Coordinates> Coordinates for Chebyshev<T> {
     }
 }
 
-/// Compute the Chebyshev distance between two points.
+/// Compute the [Chebyshev distance] between two points.
 ///
 /// ```math
 /// \begin{aligned}
@@ -51,6 +51,8 @@ impl<T: Coordinates> Coordinates for Chebyshev<T> {
 /// &= \max_i |x_i - y_i|
 /// \end{aligned}
 /// ```
+///
+/// [Chebyshev distance]: https://en.wikipedia.org/wiki/Chebyshev_distance
 pub fn chebyshev_distance<T, U>(x: T, y: U) -> T::Value
 where
     T: Coordinates,

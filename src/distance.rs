@@ -7,7 +7,7 @@ use num_traits::{Num, NumAssign, Signed};
 /// This trait is automatically implemented for all types that support the required operations.
 pub trait Value: Copy + Num + NumAssign + Signed + PartialOrd {}
 
-/// Blanket [Value] implementation.
+/// Blanket [`Value`] implementation.
 impl<T: Num + NumAssign + Signed + Copy + PartialOrd> Value for T {}
 
 /// A distance between two points.
@@ -44,7 +44,7 @@ where
     }
 }
 
-/// Any numerical distance value can be a [Distance].
+/// Any numerical distance value can be a [`Distance`].
 impl<T: Value> Distance for T {
     type Value = T;
 }
@@ -72,7 +72,7 @@ pub trait Proximity<T: ?Sized = Self> {
 /// Shorthand for `K::Distance::Value`.
 pub type DistanceValue<K, V = K> = <<K as Proximity<V>>::Distance as Distance>::Value;
 
-/// Blanket [Proximity] implementation for references.
+/// Blanket [`Proximity`] implementation for references.
 impl<'k, 'v, K: Proximity<V>, V> Proximity<&'v V> for &'k K {
     type Distance = K::Distance;
 
@@ -110,5 +110,5 @@ impl<'k, 'v, K: Proximity<V>, V> Proximity<&'v V> for &'k K {
 /// [pseudometric spaces]: https://en.wikipedia.org/wiki/Pseudometric_space
 pub trait Metric<T: ?Sized = Self>: Proximity<T> {}
 
-/// Blanket [Metric] implementation for references.
+/// Blanket [`Metric`] implementation for references.
 impl<'k, 'v, K: Metric<V>, V> Metric<&'v V> for &'k K {}

@@ -7,10 +7,10 @@ use num_traits::{zero, Signed};
 
 /// A point in taxicab space.
 ///
-/// This wrapper equips any [coordinate space] with the [taxicab distance metric].
+/// This wrapper equips any [coordinate space] with the [taxicab distance] metric.
 ///
-/// [coordinate space]: [Coordinates]
-/// [taxicab distance metric]: https://en.wikipedia.org/wiki/Taxicab_geometry
+/// [coordinate space]: Coordinates
+/// [taxicab distance]: taxicab_distance
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub struct Taxicab<T>(pub T);
 
@@ -43,7 +43,7 @@ impl<T: Coordinates> Coordinates for Taxicab<T> {
     }
 }
 
-/// Compute the taxicab distance between two points.
+/// Compute the [taxicab distance] between two points.
 ///
 /// ```math
 /// \begin{aligned}
@@ -51,6 +51,8 @@ impl<T: Coordinates> Coordinates for Taxicab<T> {
 /// &= \sum_i |x_i - y_i|
 /// \end{aligned}
 /// ```
+///
+/// [taxicab distance]: https://en.wikipedia.org/wiki/Taxicab_geometry
 pub fn taxicab_distance<T, U>(x: T, y: U) -> T::Value
 where
     T: Coordinates,

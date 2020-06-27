@@ -10,7 +10,7 @@ use std::cmp::Ordering;
 
 /// Compute the [cosine *similarity*] between two points.
 ///
-/// Use [cosine_distance] instead if you are implementing [Proximity::distance()].
+/// Use [cosine_distance] instead if you are implementing [`Proximity::distance()`].
 ///
 /// ```math
 /// \begin{aligned}
@@ -21,7 +21,7 @@ use std::cmp::Ordering;
 /// ```
 ///
 /// [cosine *similarity*]: https://en.wikipedia.org/wiki/Cosine_similarity
-/// [Proximity::distance()]: Proximity#tymethod.distance
+/// [`Proximity::distance()`]: Proximity#tymethod.distance
 pub fn cosine_similarity<T, U>(x: T, y: U) -> T::Value
 where
     T: Coordinates,
@@ -69,8 +69,8 @@ where
 
 /// Equips any [coordinate space] with the [cosine distance] function.
 ///
-/// [coordinate space]: [Coordinates]
-/// [cosine distance]: https://en.wikipedia.org/wiki/Cosine_similarity
+/// [coordinate space]: Coordinates
+/// [cosine distance]: cosine_distance
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub struct Cosine<T>(pub T);
 
@@ -112,7 +112,7 @@ where
 
 /// Compute the [cosine *similarity*] between two pre-normalized (unit magnitude) points.
 ///
-/// Use [prenorm_cosine_distance] instead if you are implementing [Proximity::distance()].
+/// Use [`prenorm_cosine_distance()`] instead if you are implementing [`Proximity::distance()`].
 ///
 /// ```math
 /// \begin{aligned}
@@ -166,8 +166,8 @@ where
 /// Equips any [coordinate space] with the [cosine distance] function for pre-normalized (unit
 /// magnitude) points.
 ///
-/// [coordinate space]: [Coordinates]
-/// [cosine distance]: https://en.wikipedia.org/wiki/Cosine_similarity
+/// [coordinate space]: Coordinates
+/// [cosine distance]: prenorm_cosine_distance
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub struct PrenormCosine<T>(pub T);
 
@@ -230,8 +230,8 @@ where
 
 /// Equips any [coordinate space] with the [angular distance] metric.
 ///
-/// [coordinate space]: [Coordinates]
-/// [angular distance]: https://en.wikipedia.org/wiki/Cosine_similarity#Angular_distance_and_similarity
+/// [coordinate space]: Coordinates
+/// [angular distance]: angular_distance
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub struct Angular<T>(pub T);
 
@@ -322,8 +322,8 @@ where
 /// Equips any [coordinate space] with the [angular distance] metric for pre-normalized (unit
 /// magnitude) points.
 ///
-/// [coordinate space]: [Coordinates]
-/// [angular distance]: https://en.wikipedia.org/wiki/Cosine_similarity#Angular_distance_and_similarity
+/// [coordinate space]: Coordinates
+/// [angular distance]: prenorm_angular_distance
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub struct PrenormAngular<T>(pub T);
 

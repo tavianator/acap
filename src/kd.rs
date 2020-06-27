@@ -81,7 +81,7 @@ impl<T: Coordinates> KdNode<T> {
     }
 }
 
-/// Marker trait for [Proximity] implementations that are compatible with k-d trees.
+/// Marker trait for [`Proximity`] implementations that are compatible with k-d trees.
 pub trait KdProximity<V: ?Sized = Self>
 where
     Self: Coordinates<Value = V::Value>,
@@ -90,7 +90,7 @@ where
     V: Coordinates,
 {}
 
-/// Blanket [KdProximity] implementation.
+/// Blanket [`KdProximity`] implementation.
 impl<K, V> KdProximity<V> for K
 where
     K: Coordinates<Value = V::Value>,
@@ -99,7 +99,7 @@ where
     V: Coordinates,
 {}
 
-/// Marker trait for [Metric] implementations that are compatible with k-d tree.
+/// Marker trait for [`Metric`] implementations that are compatible with k-d tree.
 pub trait KdMetric<V: ?Sized = Self>
 where
     Self: KdProximity<V>,
@@ -108,7 +108,7 @@ where
     V: Coordinates,
 {}
 
-/// Blanket [KdMetric] implementation.
+/// Blanket [`KdMetric`] implementation.
 impl<K, V> KdMetric<V> for K
 where
     K: KdProximity<V>,
@@ -240,7 +240,7 @@ impl<T: Coordinates> KdTree<T> {
 
     /// Push a new item into the tree.
     ///
-    /// Inserting elements individually tends to unbalance the tree.  Use [KdTree::balanced] if
+    /// Inserting elements individually tends to unbalance the tree.  Use [`KdTree::balanced()`] if
     /// possible to create a balanced tree from a batch of items.
     pub fn push(&mut self, item: T) {
         if let Some(root) = &mut self.root {
@@ -413,8 +413,8 @@ where
 
 /// A [k-d tree] stored as a flat array.
 ///
-/// A FlatKdTree is always balanced and usually more efficient than a [KdTree], but doesn't support
-/// dynamic updates.
+/// A FlatKdTree is always balanced and usually more efficient than a [`KdTree`], but doesn't
+/// support dynamic updates.
 ///
 /// [k-d tree]: https://en.wikipedia.org/wiki/K-d_tree
 #[derive(Debug)]
