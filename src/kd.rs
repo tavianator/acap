@@ -251,6 +251,12 @@ impl<T: Coordinates> KdTree<T> {
     }
 }
 
+impl<T: Coordinates> Default for KdTree<T> {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl<T: Coordinates> Extend<T> for KdTree<T> {
     fn extend<I: IntoIterator<Item = T>>(&mut self, items: I) {
         if self.root.is_some() {

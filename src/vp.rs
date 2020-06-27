@@ -1,6 +1,6 @@
 //! [Vantage-point trees](https://en.wikipedia.org/wiki/Vantage-point_tree).
 
-use crate::distance::{DistanceValue, Metric, Proximity};
+use crate::distance::{Distance, DistanceValue, Metric, Proximity};
 use crate::util::Ordered;
 use crate::{ExactNeighbors, NearestNeighbors, Neighborhood};
 
@@ -51,11 +51,11 @@ impl<T: Proximity> VpNode<T> {
     fn balanced_recursive(nodes: &mut [Option<Box<Self>>]) -> Option<Box<Self>> {
         if let Some((node, children)) = nodes.split_first_mut() {
             let mut node = node.take().unwrap();
-            children.sort_by_cached_key(|x| Ordered::new(Self::box_distance(&node, x)));
+            children.sort_by_cached_key(|x| Ordered::new(node.distance_to_box(x)));
 
             let (inside, outside) = children.split_at_mut(children.len() / 2);
             if let Some(last) = inside.last() {
-                node.radius = Self::box_distance(&node, last).into();
+                node.radius = node.distance_to_box(last).value();
             }
 
             node.inside = Self::balanced_recursive(inside);
@@ -68,8 +68,8 @@ impl<T: Proximity> VpNode<T> {
     }
 
     /// Get the distance between to boxed nodes.
-    fn box_distance(node: &Box<Self>, child: &Option<Box<Self>>) -> T::Distance {
-        node.item.distance(&child.as_ref().unwrap().item)
+    fn distance_to_box(&self, child: &Option<Box<Self>>) -> T::Distance {
+        self.item.distance(&child.as_ref().unwrap().item)
     }
 
     /// Push a new item into this subtree.
@@ -252,6 +252,12 @@ where
         f.debug_struct("VpTree")
             .field("root", &self.root)
             .finish()
+    }
+}
+
+impl<T: Proximity> Default for VpTree<T> {
+    fn default() -> Self {
+        Self::new()
     }
 }
 
