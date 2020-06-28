@@ -111,8 +111,8 @@ pub use distance::{Distance, Metric, Proximity};
 pub use euclid::{euclidean_distance, Euclidean, EuclideanDistance};
 
 use std::cmp::Ordering;
-use std::convert::TryInto;
 use std::collections::BinaryHeap;
+use std::convert::TryInto;
 
 /// A nearest neighbor.
 #[derive(Clone, Copy, Debug)]

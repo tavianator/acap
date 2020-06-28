@@ -1,6 +1,6 @@
 //! [Taxicab (Manhattan) distance](https://en.wikipedia.org/wiki/Taxicab_geometry).
 
-use crate::coords::{Coordinates, CoordinateMetric, CoordinateProximity};
+use crate::coords::{CoordinateMetric, CoordinateProximity, Coordinates};
 use crate::distance::{Metric, Proximity};
 
 use num_traits::{zero, Signed};

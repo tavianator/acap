@@ -39,7 +39,7 @@ impl<T: Value> Coordinates for [T] {
 
 /// [`Coordinates`] implementation for arrays.
 macro_rules! array_coordinates {
-    ($n:expr) => (
+    ($n:expr) => {
         impl<T: Value> Coordinates for [T; $n] {
             type Value = T;
 
@@ -51,7 +51,7 @@ macro_rules! array_coordinates {
                 self[i]
             }
         }
-    );
+    };
 }
 
 array_coordinates!(1);

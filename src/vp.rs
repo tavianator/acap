@@ -191,9 +191,7 @@ pub struct VpTree<T: Proximity> {
 impl<T: Proximity> VpTree<T> {
     /// Create an empty tree.
     pub fn new() -> Self {
-        Self {
-            root: None,
-        }
+        Self { root: None }
     }
 
     /// Create a balanced tree out of a sequence of items.

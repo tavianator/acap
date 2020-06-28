@@ -484,7 +484,7 @@ macro_rules! impl_distance {
         impl Distance for AngularDistance<$f> {
             type Value = $f;
         }
-    }
+    };
 }
 
 impl_distance!(f32);

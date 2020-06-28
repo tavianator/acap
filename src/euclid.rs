@@ -1,6 +1,6 @@
 //! [Euclidean space](https://en.wikipedia.org/wiki/Euclidean_space).
 
-use crate::coords::{Coordinates, CoordinateMetric, CoordinateProximity};
+use crate::coords::{CoordinateMetric, CoordinateProximity, Coordinates};
 use crate::distance::{Distance, Metric, Proximity, Value};
 
 use num_traits::zero;
@@ -243,7 +243,7 @@ macro_rules! float_distance {
         impl Distance for EuclideanDistance<$f> {
             type Value = $f;
         }
-    }
+    };
 }
 
 float_distance!(f32);
@@ -353,7 +353,7 @@ macro_rules! int_distance {
         impl Distance for EuclideanDistance<$i> {
             type Value = $f;
         }
-    }
+    };
 }
 
 int_distance!(i16, f32, f32);

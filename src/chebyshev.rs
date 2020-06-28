@@ -1,6 +1,6 @@
 //! [Chebyshev distance](https://en.wikipedia.org/wiki/Chebyshev_distance).
 
-use crate::coords::{Coordinates, CoordinateMetric, CoordinateProximity};
+use crate::coords::{CoordinateMetric, CoordinateProximity, Coordinates};
 use crate::distance::{Metric, Proximity};
 
 use num_traits::{zero, Signed};

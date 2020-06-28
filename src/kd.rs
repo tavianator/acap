@@ -1,6 +1,6 @@
 //! [k-d trees](https://en.wikipedia.org/wiki/K-d_tree).
 
-use crate::coords::{Coordinates, CoordinateMetric, CoordinateProximity};
+use crate::coords::{CoordinateMetric, CoordinateProximity, Coordinates};
 use crate::distance::{Metric, Proximity};
 use crate::util::Ordered;
 use crate::{ExactNeighbors, NearestNeighbors, Neighborhood};
@@ -200,9 +200,7 @@ pub struct KdTree<T> {
 impl<T: Coordinates> KdTree<T> {
     /// Create an empty tree.
     pub fn new() -> Self {
-        Self {
-            root: None,
-        }
+        Self { root: None }
     }
 
     /// Create a balanced tree out of a sequence of items.
@@ -378,7 +376,7 @@ impl<T: Coordinates> FlatKdNode<T> {
             nodes.swap(0, mid);
 
             let (node, children) = nodes.split_first_mut().unwrap();
-            let (left, right)  = children.split_at_mut(mid);
+            let (left, right) = children.split_at_mut(mid);
             node.left_len = left.len();
 
             let next = (level + 1) % node.item.dims();
@@ -477,7 +475,9 @@ where
     {
         if !self.nodes.is_empty() {
             let mut closest = neighborhood.target().as_vec();
-            self.nodes.as_slice().search(0, &mut closest, &mut neighborhood);
+            self.nodes
+                .as_slice()
+                .search(0, &mut closest, &mut neighborhood);
         }
         neighborhood
     }
