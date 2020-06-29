@@ -51,15 +51,58 @@ impl<T: Value> Distance for T {
 
 /// A space with some notion of distance between points.
 ///
-/// Distances in this space don't need to obey any particular rules like symmetry or the [triangle
-/// inequality].  However, spaces that satisfy those rules, at least approximately, often allow for
-/// more accurate and efficient searches.
+/// There are no restrictions on the distances returned by spaces that implement only `Proximity`.
+/// In particular, they may be asymmetric or even negative.  If a space meets the restrictions of
+/// the [`Metric`] trait, it should be implemented as well.  Spaces that satisfy those rules, at
+/// least approximately, often allow for more accurate and efficient searches.
 ///
-/// Type parameters:
+/// `Proximity<T>` is generic, to allow comparisons between objects of related but distinct types.
+/// For example:
 ///
-/// * `T`: The type to compare against.
+/// ```
+/// # use acap::cos::{angular_distance, AngularDistance};
+/// # use acap::distance::Proximity;
+/// // A GPS coordinate
+/// struct Gps {
+///     lat: f64,
+///     long: f64,
+/// }
+/// # type HaversineDistance = f64;
+/// # fn haversine_distance(a: &Gps, b: &Gps) -> HaversineDistance {
+/// #     0.0
+/// # }
 ///
-/// [triangle inequality]: https://en.wikipedia.org/wiki/Triangle_inequality
+/// // For computing distances between GPS coordinates
+/// impl Proximity for Gps {
+///     type Distance = HaversineDistance;
+///
+///     fn distance(&self, other: &Self) -> Self::Distance {
+///         haversine_distance(self, other)
+///     }
+/// }
+///
+/// // A point of interest with a known location, name, ...
+/// struct PointOfInterest {
+///     location: Gps,
+///     name: String,
+///     // ...
+/// }
+///
+/// // Compute the distance between a GPS coordinate and a point of interest,
+/// // by delegating to the Proximity impl for Gps
+/// impl Proximity<PointOfInterest> for Gps {
+///     type Distance = <Gps as Proximity>::Distance;
+///
+///     fn distance(&self, other: &PointOfInterest) -> Self::Distance {
+///         self.distance(&other.location)
+///     }
+/// }
+/// ```
+///
+/// With those implementations available, you could use a [`NearestNeighbors<Gps, PointOfInterest>`]
+/// instance to find the closest point(s) of interest to any GPS location.
+///
+/// [`NearestNeighbors<Gps, PointOfInterest>`]: super::NearestNeighbors
 pub trait Proximity<T: ?Sized = Self> {
     /// The type that represents distances.
     type Distance: Distance;
