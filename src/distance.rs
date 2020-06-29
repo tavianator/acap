@@ -14,8 +14,8 @@ impl<T: Num + NumAssign + Signed + Copy + PartialOrd> Value for T {}
 ///
 /// An implementation may be an actual numerical distance, or an [order embedding] of the true
 /// distance.  This allows for optimizations whenever distances can be compared more efficiently
-/// than their exact values can be computed, as is the case for [Euclidean distance].  Implementors
-/// must satisfy, for all distances `$x$` and `$y$`:
+/// than their exact values can be computed.  Implementors must satisfy, for all distances `$x$` and
+/// `$y$`:
 ///
 /// ```math
 /// \begin{aligned}
@@ -25,8 +25,14 @@ impl<T: Num + NumAssign + Signed + Copy + PartialOrd> Value for T {}
 /// \end{aligned}
 /// ```
 ///
+/// Any monotonically increasing function can be used to create an order embedding.  For example,
+/// [`EuclideanDistance`] holds a squared distance, rather than the distance itself.  Comparisons
+/// still behave correctly because `$x \mapsto x^2$` is an increasing function.  This lets us avoid
+/// computing relatively expensive square roots until we need the `value()` itself, at which point
+/// the inverse function `$x \mapsto \sqrt{x}$` must be applied.
+///
 /// [order embedding]: https://en.wikipedia.org/wiki/Order_embedding
-/// [Euclidean distance]: crate::euclid::EuclideanDistance
+/// [`EuclideanDistance`]: crate::euclid::EuclideanDistance
 pub trait Distance
 where
     Self: Copy,
