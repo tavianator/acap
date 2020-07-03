@@ -65,17 +65,34 @@ fn bench_nearest_neighbors(c: &mut Criterion) {
             let index = $type::from_iter(points.clone());
 
             group.bench_function("nearest", |b| b.iter(
-                || index.nearest(&target))
-            );
+                || index.nearest(&target)
+            ));
             group.bench_function("nearest_within", |b| b.iter(
-                || index.nearest_within(&target, 0.1))
-            );
+                || index.nearest_within(&target, 0.1)
+            ));
             group.bench_function("k_nearest", |b| b.iter(
-                || index.k_nearest(&target, 3))
-            );
+                || index.k_nearest(&target, 3)
+            ));
             group.bench_function("k_nearest_within", |b| b.iter(
-                || index.k_nearest_within(&target, 3, 0.1))
-            );
+                || index.k_nearest_within(&target, 3, 0.1)
+            ));
+
+            group.bench_function("merge_k_nearest", |b| b.iter_batched(
+                || Vec::with_capacity(3),
+                |mut n| {
+                    index.merge_k_nearest(&target, 3, &mut n);
+                    n
+                },
+                BatchSize::SmallInput,
+            ));
+            group.bench_function("merge_k_nearest_within", |b| b.iter_batched(
+                || Vec::with_capacity(3),
+                |mut n| {
+                    index.merge_k_nearest_within(&target, 3, &mut n, 0.1);
+                    n
+                },
+                BatchSize::SmallInput,
+            ));
 
             group.finish();
         };
