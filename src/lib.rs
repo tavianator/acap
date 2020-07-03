@@ -274,7 +274,7 @@ struct HeapNeighborhood<K, V, D> {
 }
 
 impl<K, V, D: PartialOrd> HeapNeighborhood<K, V, D> {
-    /// Create a new singleton neighborhood.
+    /// Create a new HeapNeighborhood.
     ///
     /// * `target`: The search target.
     /// * `k`: The number of nearest neighbors to find.
@@ -284,11 +284,11 @@ impl<K, V, D: PartialOrd> HeapNeighborhood<K, V, D> {
             target,
             k,
             threshold,
-            heap: BinaryHeap::new(),
+            heap: BinaryHeap::with_capacity(k),
         }
     }
 
-    /// Convert this result into an optional neighbor.
+    /// Extract the results from this neighborhood.
     fn into_vec(self) -> Vec<Neighbor<V, D>> {
         self.heap
             .into_sorted_vec()
