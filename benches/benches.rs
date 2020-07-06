@@ -88,7 +88,7 @@ fn bench_nearest_neighbors(c: &mut Criterion) {
             group.bench_function("merge_k_nearest_within", |b| b.iter_batched(
                 || Vec::with_capacity(3),
                 |mut n| {
-                    index.merge_k_nearest_within(&target, 3, &mut n, 0.1);
+                    index.merge_k_nearest_within(&target, 3, 0.1, &mut n);
                     n
                 },
                 BatchSize::SmallInput,
