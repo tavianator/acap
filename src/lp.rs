@@ -1,6 +1,10 @@
-//! [`$L^p$` spaces](https://en.wikipedia.org/wiki/Lp_space).
+//! [`$\ell^p$`]/[Minkowski] distance.
+//!
+//! [`$\ell^p$`]: https://en.wikipedia.org/wiki/Lp_space
+//! [Minkowski]: https://en.wikipedia.org/wiki/Minkowski_distance
 
 use crate::coords::Coordinates;
+use crate::distance::Proximity;
 
 use num_traits::real::Real;
 use num_traits::zero;
@@ -25,7 +29,7 @@ pub use crate::chebyshev::Chebyshev as Linf;
 /// Compute the L<sup>∞</sup> distance between two points.
 pub use crate::chebyshev::chebyshev_distance as linf_distance;
 
-/// Compute the [`$L^p$` distance] between two points.
+/// Compute the [`$\ell^p$`]/[Minkowski] distance between two points.
 ///
 /// ```math
 /// \begin{aligned}
@@ -34,7 +38,8 @@ pub use crate::chebyshev::chebyshev_distance as linf_distance;
 /// \end{aligned}
 /// ```
 ///
-/// [`$L^p$` distance]: https://en.wikipedia.org/wiki/Lp_space
+/// [`$\ell^p$`]: https://en.wikipedia.org/wiki/Lp_space
+/// [Minkowski]: https://en.wikipedia.org/wiki/Minkowski_distance
 pub fn lp_distance<T, U>(p: T::Value, x: T, y: U) -> T::Value
 where
     T: Coordinates,
@@ -50,6 +55,14 @@ where
 
     sum.powf(p.recip())
 }
+
+/// Marker trait for [Minkowski distances].
+///
+/// [Minkowski distances]: https://en.wikipedia.org/wiki/Minkowski_distance
+pub trait Minkowski<T: ?Sized = Self>: Proximity<T> {}
+
+/// Blanket [`Minkowski`] implementation for references.
+impl<'k, 'v, K: Minkowski<V>, V> Minkowski<&'v V> for &'k K {}
 
 #[cfg(test)]
 mod tests {

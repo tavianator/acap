@@ -464,10 +464,10 @@ pub mod tests {
 
     type Point = Euclidean<[f32; 3]>;
 
-    /// Test a [NearestNeighbors] implementation.
-    pub fn test_nearest_neighbors<T, F>(from_iter: F)
+    /// Test an [ExactNeighbors] implementation.
+    pub fn test_exact_neighbors<T, F>(from_iter: F)
     where
-        T: NearestNeighbors<Point>,
+        T: ExactNeighbors<Point>,
         F: Fn(Vec<Point>) -> T,
     {
         test_empty(&from_iter);

@@ -532,16 +532,16 @@ where
 mod tests {
     use super::*;
 
-    use crate::tests::test_nearest_neighbors;
+    use crate::tests::test_exact_neighbors;
 
     #[test]
     fn test_vp_tree() {
-        test_nearest_neighbors(VpTree::from_iter);
+        test_exact_neighbors(VpTree::from_iter);
     }
 
     #[test]
     fn test_unbalanced_vp_tree() {
-        test_nearest_neighbors(|points| {
+        test_exact_neighbors(|points| {
             let mut tree = VpTree::new();
             for point in points {
                 tree.push(point);
@@ -552,6 +552,6 @@ mod tests {
 
     #[test]
     fn test_flat_vp_tree() {
-        test_nearest_neighbors(FlatVpTree::from_iter);
+        test_exact_neighbors(FlatVpTree::from_iter);
     }
 }

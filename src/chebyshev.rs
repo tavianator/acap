@@ -1,7 +1,8 @@
 //! [Chebyshev distance](https://en.wikipedia.org/wiki/Chebyshev_distance).
 
-use crate::coords::{CoordinateMetric, CoordinateProximity, Coordinates};
+use crate::coords::Coordinates;
 use crate::distance::{Metric, Proximity};
+use crate::lp::Minkowski;
 
 use num_traits::{zero, Signed};
 
@@ -104,15 +105,12 @@ impl<T: Coordinates> Metric<T> for Chebyshev<T> {}
 
 impl<T: Coordinates> Metric<Chebyshev<T>> for T {}
 
-impl<T: Coordinates> CoordinateProximity<T::Value> for Chebyshev<T> {
-    type Distance = T::Value;
+/// Chebyshev distance is a [Minkowski] distance.
+impl<T: Coordinates> Minkowski for Chebyshev<T> {}
 
-    fn distance_to_coords(&self, coords: &[T::Value]) -> Self::Distance {
-        chebyshev_distance(self, coords)
-    }
-}
+impl<T: Coordinates> Minkowski<T> for Chebyshev<T> {}
 
-impl<T: Coordinates> CoordinateMetric<T::Value> for Chebyshev<T> {}
+impl<T: Coordinates> Minkowski<Chebyshev<T>> for T {}
 
 #[cfg(test)]
 mod tests {

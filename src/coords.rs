@@ -1,6 +1,6 @@
 //! [Coordinate spaces](https://en.wikipedia.org/wiki/Cartesian_coordinate_system).
 
-use crate::distance::{Distance, Value};
+use crate::distance::Value;
 
 /// A coordinate space.
 pub trait Coordinates {
@@ -88,26 +88,3 @@ impl<T: ?Sized + Coordinates> Coordinates for &T {
         (*self).coord(i)
     }
 }
-
-/// Types that support computing distances to raw slices of coordinates.
-pub trait CoordinateProximity<T> {
-    type Distance: Distance;
-
-    /// Compute the distance to a point specified by its coordinates.
-    fn distance_to_coords(&self, coords: &[T]) -> Self::Distance;
-}
-
-/// Blanket [`CoordinateProximity`] implementation for references.
-impl<T: CoordinateProximity<U>, U> CoordinateProximity<U> for &T {
-    type Distance = T::Distance;
-
-    fn distance_to_coords(&self, coords: &[U]) -> Self::Distance {
-        (*self).distance_to_coords(coords)
-    }
-}
-
-/// Marker trait for coordinate proximities that are [metrics][crate::distance::Metric].
-pub trait CoordinateMetric<T>: CoordinateProximity<T> {}
-
-/// Blanket [`CoordinateMetric`] implementation for references.
-impl<T: CoordinateMetric<U>, U> CoordinateMetric<U> for &T {}

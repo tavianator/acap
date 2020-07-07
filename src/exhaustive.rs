@@ -80,10 +80,10 @@ impl<K: Proximity<V>, V> ExactNeighbors<K, V> for ExhaustiveSearch<V> {}
 pub mod tests {
     use super::*;
 
-    use crate::tests::test_nearest_neighbors;
+    use crate::tests::test_exact_neighbors;
 
     #[test]
     fn test_exhaustive_index() {
-        test_nearest_neighbors(ExhaustiveSearch::from_iter);
+        test_exact_neighbors(ExhaustiveSearch::from_iter);
     }
 }

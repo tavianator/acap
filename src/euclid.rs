@@ -1,7 +1,8 @@
 //! [Euclidean space](https://en.wikipedia.org/wiki/Euclidean_space).
 
-use crate::coords::{CoordinateMetric, CoordinateProximity, Coordinates};
+use crate::coords::Coordinates;
 use crate::distance::{Distance, Metric, Proximity, Value};
+use crate::lp::Minkowski;
 
 use num_traits::zero;
 
@@ -128,19 +129,20 @@ where
     EuclideanDistance<T::Value>: Distance,
 {}
 
-impl<T> CoordinateProximity<T::Value> for Euclidean<T>
+/// Euclidean distance is a [Minkowski] distance.
+impl<T> Minkowski for Euclidean<T>
 where
     T: Coordinates,
     EuclideanDistance<T::Value>: Distance,
-{
-    type Distance = EuclideanDistance<T::Value>;
+{}
 
-    fn distance_to_coords(&self, coords: &[T::Value]) -> Self::Distance {
-        euclidean_distance(self, coords)
-    }
-}
+impl<T> Minkowski<T> for Euclidean<T>
+where
+    T: Coordinates,
+    EuclideanDistance<T::Value>: Distance,
+{}
 
-impl<T> CoordinateMetric<T::Value> for Euclidean<T>
+impl<T> Minkowski<Euclidean<T>> for T
 where
     T: Coordinates,
     EuclideanDistance<T::Value>: Distance,
