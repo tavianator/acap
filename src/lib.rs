@@ -79,6 +79,33 @@
 //! marker trait.  For example, a [`VpTree`] will be exact when the [`Proximity`] function is a
 //! [`Metric`].
 //!
+//! # Examples
+//!
+//! ## Searching without owning
+//!
+//! Since [`Proximity`] has a blanket implementation for references, you can store references in a
+//! nearest neighbor index instead of having it hold the data itself:
+//!
+//!     use acap::euclid::Euclidean;
+//!     use acap::vp::VpTree;
+//!     use acap::NearestNeighbors;
+//!
+//!     let points = vec![
+//!         Euclidean([3, 4]),
+//!         Euclidean([5, 12]),
+//!         Euclidean([8, 15]),
+//!         Euclidean([7, 24]),
+//!     ];
+//!
+//!     let tree = VpTree::balanced(points.iter());
+//!
+//!     let nearest = tree.nearest(&&[7, 7]).unwrap();
+//!     assert!(std::ptr::eq(*nearest.item, &points[0]));
+//!
+//! ## Custom distance functions
+//!
+//! See the [`Proximity`] documentation.
+//!
 //! [nearest neighbor search]: https://en.wikipedia.org/wiki/Nearest_neighbor_search
 //! [`distance()`]: Proximity#tymethod.distance
 //! [`value()`]: Distance#method.value
