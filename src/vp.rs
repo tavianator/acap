@@ -461,7 +461,7 @@ where
 {
     fn fmt(&self, f: &mut Formatter) -> fmt::Result {
         f.debug_struct("FlatVpTree")
-            .field("node", &self.nodes)
+            .field("nodes", &self.nodes)
             .finish()
     }
 }
