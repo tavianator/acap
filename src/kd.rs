@@ -14,7 +14,7 @@ use std::ops::Deref;
 /// A node in a k-d tree.
 #[derive(Debug)]
 struct KdNode<T> {
-    /// The vantage point itself.
+    /// The item stored in this node.
     item: T,
     /// The left subtree, if any.
     left: Option<Box<Self>>,
@@ -51,7 +51,7 @@ impl<T: Coordinates> KdNode<T> {
             return None;
         }
 
-        nodes.sort_by_cached_key(|x| Ordered::new(x.as_ref().unwrap().item.coord(level)));
+        nodes.sort_unstable_by_key(|x| Ordered::new(x.as_ref().unwrap().item.coord(level)));
 
         let (left, right) = nodes.split_at_mut(nodes.len() / 2);
         let (node, right) = right.split_first_mut().unwrap();
@@ -317,7 +317,7 @@ where
 /// A node in a flat k-d tree.
 #[derive(Debug)]
 struct FlatKdNode<T> {
-    /// The vantage point itself.
+    /// The item stored in this node.
     item: T,
     /// The size of the left subtree.
     left_len: usize,
@@ -347,7 +347,7 @@ impl<T: Coordinates> FlatKdNode<T> {
     /// Create a balanced subtree.
     fn balance_recursive(nodes: &mut [Self], level: usize) {
         if !nodes.is_empty() {
-            nodes.sort_by_cached_key(|x| Ordered::new(x.item.coord(level)));
+            nodes.sort_unstable_by_key(|x| Ordered::new(x.item.coord(level)));
 
             let mid = nodes.len() / 2;
             nodes.swap(0, mid);
