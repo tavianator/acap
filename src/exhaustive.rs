@@ -43,20 +43,24 @@ impl<T> FromIterator<T> for ExhaustiveSearch<T> {
     }
 }
 
-impl<T> IntoIterator for ExhaustiveSearch<T> {
-    type Item = T;
-    type IntoIter = std::vec::IntoIter<T>;
+/// An iterator that moves values out of an exhaustive index.
+#[derive(Debug)]
+pub struct IntoIter<T>(std::vec::IntoIter<T>);
 
-    fn into_iter(self) -> Self::IntoIter {
-        self.0.into_iter()
+impl<T> Iterator for IntoIter<T> {
+    type Item = T;
+
+    fn next(&mut self) -> Option<T> {
+        self.0.next()
     }
 }
 
-impl<T> Extend<T> for ExhaustiveSearch<T> {
-    fn extend<I: IntoIterator<Item = T>>(&mut self, iter: I) {
-        for value in iter {
-            self.push(value);
-        }
+impl<T> IntoIterator for ExhaustiveSearch<T> {
+    type Item = T;
+    type IntoIter = IntoIter<T>;
+
+    fn into_iter(self) -> Self::IntoIter {
+        IntoIter(self.0.into_iter())
     }
 }
 
