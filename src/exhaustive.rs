@@ -15,9 +15,9 @@ impl<T> ExhaustiveSearch<T> {
         Self(Vec::new())
     }
 
-    /// Add a new item to the index.
-    pub fn push(&mut self, item: T) {
-        self.0.push(item);
+    /// Iterate over the items stored in this index.
+    pub fn iter(&self) -> Iter<T> {
+        (&self).into_iter()
     }
 
     /// Get the size of this index.
@@ -28,6 +28,11 @@ impl<T> ExhaustiveSearch<T> {
     /// Check if this index is empty.
     pub fn is_empty(&self) -> bool {
         self.0.is_empty()
+    }
+
+    /// Add a new item to the index.
+    pub fn push(&mut self, item: T) {
+        self.0.push(item);
     }
 }
 
@@ -61,6 +66,35 @@ impl<T> IntoIterator for ExhaustiveSearch<T> {
 
     fn into_iter(self) -> Self::IntoIter {
         IntoIter(self.0.into_iter())
+    }
+}
+
+/// An iterator over the values in an exhaustive index.
+#[derive(Debug)]
+pub struct Iter<'a, T>(std::slice::Iter<'a, T>);
+
+impl<'a, T> Iterator for Iter<'a, T> {
+    type Item = &'a T;
+
+    fn next(&mut self) -> Option<&'a T> {
+        self.0.next()
+    }
+}
+
+impl<'a, T> IntoIterator for &'a ExhaustiveSearch<T> {
+    type Item = &'a T;
+    type IntoIter = Iter<'a, T>;
+
+    fn into_iter(self) -> Self::IntoIter {
+        Iter(self.0.iter())
+    }
+}
+
+impl<T> Extend<T> for ExhaustiveSearch<T> {
+    fn extend<I: IntoIterator<Item = T>>(&mut self, iter: I) {
+        for value in iter {
+            self.push(value);
+        }
     }
 }
 
