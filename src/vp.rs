@@ -73,11 +73,7 @@ impl<T: Proximity> VpNode<T> {
     }
 
     /// Push a new item into this subtree.
-    fn push(&mut self, item: T)
-    where
-        // https://github.com/rust-lang/rust/issues/72582
-        T::Distance: PartialOrd + PartialOrd<DistanceValue<T>>,
-    {
+    fn push(&mut self, item: T) {
         match (&mut self.inside, &mut self.outside) {
             (None, None) => {
                 self.outside = Some(Box::new(Self::new(item)));
