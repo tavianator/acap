@@ -4,8 +4,8 @@
 //!
 //! The notion of distances between points is captured by the [`Proximity`] trait.  Its
 //! [`distance()`] method returns a [`Distance`], from which the actual numerical distance may be
-//! retrieved with [`value()`].  These layers of abstraction allow `acap` to work with generically
-//! with different distance functions over different types.
+//! retrieved with [`value()`].  These layers of abstraction allow `acap` to work generically with
+//! different distance functions over different types.
 //!
 //! There are no restrictions on the distances computed by a [`Proximity`].  For example, they don't
 //! have to be symmetric, subadditive, or even positive.  Implementations that do have these
