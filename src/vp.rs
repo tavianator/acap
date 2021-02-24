@@ -201,6 +201,11 @@ impl<T: Proximity> VpTree<T> {
         }
     }
 
+    /// Iterate over the items stored in this tree.
+    pub fn iter(&self) -> Iter<T> {
+        (&self).into_iter()
+    }
+
     /// Rebalance this VP tree.
     pub fn balance(&mut self) {
         let mut nodes = Vec::new();
@@ -324,6 +329,56 @@ impl<T: Proximity> IntoIterator for VpTree<T> {
 
     fn into_iter(self) -> Self::IntoIter {
         IntoIter::new(self.root)
+    }
+}
+
+/// An iterator over the values in a VP tree.
+pub struct Iter<'a, T: Proximity> {
+    stack: Vec<&'a VpNode<T>>,
+}
+
+impl<'a, T: Proximity> Iter<'a, T> {
+    fn new(node: &'a Option<VpNode<T>>) -> Self {
+        Self {
+            stack: node.as_ref().into_iter().collect(),
+        }
+    }
+}
+
+impl<'a, T> Debug for Iter<'a, T>
+where
+    T: Proximity + Debug,
+    DistanceValue<T>: Debug,
+{
+    fn fmt(&self, f: &mut Formatter) -> fmt::Result {
+        f.debug_struct("Iter")
+            .field("stack", &self.stack)
+            .finish()
+    }
+}
+
+impl<'a, T: Proximity> Iterator for Iter<'a, T> {
+    type Item = &'a T;
+
+    fn next(&mut self) -> Option<&'a T> {
+        self.stack.pop().map(|node| {
+            if let Some(inside) = &node.inside {
+                self.stack.push(inside);
+            }
+            if let Some(outside) = &node.outside {
+                self.stack.push(outside);
+            }
+            &node.item
+        })
+    }
+}
+
+impl<'a, T: Proximity> IntoIterator for &'a VpTree<T> {
+    type Item = &'a T;
+    type IntoIter = Iter<'a, T>;
+
+    fn into_iter(self) -> Self::IntoIter {
+        Iter::new(&self.root)
     }
 }
 
@@ -452,6 +507,11 @@ impl<T: Proximity> FlatVpTree<T> {
             nodes: FlatVpNode::balanced(items),
         }
     }
+
+    /// Iterate over the items stored in this tree.
+    pub fn iter(&self) -> FlatIter<T> {
+        (&self).into_iter()
+    }
 }
 
 impl<T> Debug for FlatVpTree<T>
@@ -501,6 +561,38 @@ impl<T: Proximity> IntoIterator for FlatVpTree<T> {
 
     fn into_iter(self) -> Self::IntoIter {
         FlatIntoIter(self.nodes.into_iter())
+    }
+}
+
+/// An iterator over the values in a flat VP tree.
+pub struct FlatIter<'a, T: Proximity>(std::slice::Iter<'a, FlatVpNode<T>>);
+
+impl<'a, T> Debug for FlatIter<'a, T>
+where
+    T: Proximity + Debug,
+    DistanceValue<T>: Debug,
+{
+    fn fmt(&self, f: &mut Formatter) -> fmt::Result {
+        f.debug_tuple("FlatIter")
+            .field(&self.0)
+            .finish()
+    }
+}
+
+impl<'a, T: Proximity> Iterator for FlatIter<'a, T> {
+    type Item = &'a T;
+
+    fn next(&mut self) -> Option<&'a T> {
+        self.0.next().map(|n| &n.item)
+    }
+}
+
+impl<'a, T: Proximity> IntoIterator for &'a FlatVpTree<T> {
+    type Item = &'a T;
+    type IntoIter = FlatIter<'a, T>;
+
+    fn into_iter(self) -> Self::IntoIter {
+        FlatIter(self.nodes.iter())
     }
 }
 
