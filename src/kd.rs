@@ -185,6 +185,11 @@ impl<T: Coordinates> KdTree<T> {
         }
     }
 
+    /// Iterate over the items stored in this tree.
+    pub fn iter(&self) -> Iter<T> {
+        (&self).into_iter()
+    }
+
     /// Rebalance this k-d tree.
     pub fn balance(&mut self) {
         let mut nodes = Vec::new();
@@ -265,7 +270,7 @@ impl<T> IntoIter<T> {
 impl<T> Iterator for IntoIter<T> {
     type Item = T;
 
-    fn next(&mut self) -> Option<T> {
+    fn next(&mut self) -> Option<Self::Item> {
         self.stack.pop().map(|node| {
             if let Some(left) = node.left {
                 self.stack.push(*left);
@@ -284,6 +289,45 @@ impl<T> IntoIterator for KdTree<T> {
 
     fn into_iter(self) -> Self::IntoIter {
         IntoIter::new(self.root)
+    }
+}
+
+/// An iterator over the values in a k-d tree.
+#[derive(Debug)]
+pub struct Iter<'a, T> {
+    stack: Vec<&'a KdNode<T>>,
+}
+
+impl<'a, T> Iter<'a, T> {
+    fn new(node: &'a Option<KdNode<T>>) -> Self {
+        Self {
+            stack: node.as_ref().into_iter().collect(),
+        }
+    }
+}
+
+impl<'a, T> Iterator for Iter<'a, T> {
+    type Item = &'a T;
+
+    fn next(&mut self) -> Option<Self::Item> {
+        self.stack.pop().map(|node| {
+            if let Some(left) = &node.left {
+                self.stack.push(left);
+            }
+            if let Some(right) = &node.right {
+                self.stack.push(right);
+            }
+            &node.item
+        })
+    }
+}
+
+impl<'a, T> IntoIterator for &'a KdTree<T> {
+    type Item = &'a T;
+    type IntoIter = Iter<'a, T>;
+
+    fn into_iter(self) -> Self::IntoIter {
+        Iter::new(&self.root)
     }
 }
 
@@ -411,6 +455,11 @@ impl<T: Coordinates> FlatKdTree<T> {
             nodes: FlatKdNode::balanced(items),
         }
     }
+
+    /// Iterate over the items stored in this tree.
+    pub fn iter(&self) -> FlatIter<T> {
+        (&self).into_iter()
+    }
 }
 
 impl<T: Coordinates> FromIterator<T> for FlatKdTree<T> {
@@ -426,7 +475,7 @@ pub struct FlatIntoIter<T>(std::vec::IntoIter<FlatKdNode<T>>);
 impl<T> Iterator for FlatIntoIter<T> {
     type Item = T;
 
-    fn next(&mut self) -> Option<T> {
+    fn next(&mut self) -> Option<Self::Item> {
         self.0.next().map(|n| n.item)
     }
 }
@@ -437,6 +486,27 @@ impl<T> IntoIterator for FlatKdTree<T> {
 
     fn into_iter(self) -> Self::IntoIter {
         FlatIntoIter(self.nodes.into_iter())
+    }
+}
+
+/// An iterator over the values in a flat k-d tree.
+#[derive(Debug)]
+pub struct FlatIter<'a, T>(std::slice::Iter<'a, FlatKdNode<T>>);
+
+impl<'a, T> Iterator for FlatIter<'a, T> {
+    type Item = &'a T;
+
+    fn next(&mut self) -> Option<Self::Item> {
+        self.0.next().map(|n| &n.item)
+    }
+}
+
+impl<'a, T> IntoIterator for &'a FlatKdTree<T> {
+    type Item = &'a T;
+    type IntoIter = FlatIter<'a, T>;
+
+    fn into_iter(self) -> Self::IntoIter {
+        FlatIter(self.nodes.iter())
     }
 }
 
