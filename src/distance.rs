@@ -38,11 +38,10 @@ where
     Self: Copy,
     Self: Into<<Self as Distance>::Value>,
     Self: PartialOrd<<Self as Distance>::Value>,
-    <Self as Distance>::Value: PartialOrd<Self>,
     Self: PartialOrd,
 {
     /// The type of actual numerical distances.
-    type Value: Value;
+    type Value: Value + PartialOrd<Self>;
 
     /// Get the real numerical value of this distance.
     fn value(self) -> Self::Value {
