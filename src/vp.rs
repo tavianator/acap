@@ -1,8 +1,8 @@
 //! [Vantage-point trees](https://en.wikipedia.org/wiki/Vantage-point_tree).
 
 use crate::distance::{Distance, DistanceValue, Metric, Proximity};
+use crate::knn::{ExactNeighbors, NearestNeighbors, Neighborhood};
 use crate::util::Ordered;
-use crate::{ExactNeighbors, NearestNeighbors, Neighborhood};
 
 use num_traits::zero;
 
@@ -620,7 +620,7 @@ where
 mod tests {
     use super::*;
 
-    use crate::tests::test_exact_neighbors;
+    use crate::knn::tests::test_exact_neighbors;
 
     #[test]
     fn test_vp_tree() {

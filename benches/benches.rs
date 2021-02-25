@@ -3,8 +3,8 @@
 use acap::euclid::Euclidean;
 use acap::exhaustive::ExhaustiveSearch;
 use acap::kd::{FlatKdTree, KdTree};
+use acap::knn::NearestNeighbors;
 use acap::vp::{FlatVpTree, VpTree};
-use acap::NearestNeighbors;
 
 use criterion::{black_box, criterion_group, criterion_main, BatchSize, Criterion};
 

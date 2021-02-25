@@ -3,7 +3,7 @@
 use std::cmp::Ordering;
 
 /// A wrapper that converts a partial ordering into a total one by panicking.
-#[derive(Clone, Copy, Debug, PartialEq, PartialOrd)]
+#[derive(Clone, Copy, Debug, PartialOrd)]
 pub struct Ordered<T>(T);
 
 impl<T> Ordered<T> {
@@ -25,7 +25,13 @@ impl<T: PartialOrd> Ord for Ordered<T> {
     }
 }
 
-impl<T: PartialEq> Eq for Ordered<T> {}
+impl<T: PartialOrd> PartialEq for Ordered<T> {
+    fn eq(&self, other: &Self) -> bool {
+        self.cmp(other) == Ordering::Equal
+    }
+}
+
+impl<T: PartialOrd> Eq for Ordered<T> {}
 
 #[cfg(test)]
 mod tests {

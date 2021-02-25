@@ -3,8 +3,8 @@
 use crate::coords::Coordinates;
 use crate::distance::Proximity;
 use crate::lp::Minkowski;
+use crate::knn::{ExactNeighbors, NearestNeighbors, Neighborhood};
 use crate::util::Ordered;
-use crate::{ExactNeighbors, NearestNeighbors, Neighborhood};
 
 use num_traits::Signed;
 
@@ -541,7 +541,7 @@ where
 mod tests {
     use super::*;
 
-    use crate::tests::test_exact_neighbors;
+    use crate::knn::tests::test_exact_neighbors;
 
     #[test]
     fn test_kd_tree() {

@@ -1,7 +1,7 @@
-//! Exhaustive nearest neighbor search.
+//! [Exhaustive nearest neighbor search](https://en.wikipedia.org/wiki/Nearest_neighbor_search#Linear_search).
 
 use crate::distance::Proximity;
-use crate::{ExactNeighbors, NearestNeighbors, Neighborhood};
+use crate::knn::{ExactNeighbors, NearestNeighbors, Neighborhood};
 
 use std::iter::FromIterator;
 
@@ -118,7 +118,7 @@ impl<K: Proximity<V>, V> ExactNeighbors<K, V> for ExhaustiveSearch<V> {}
 pub mod tests {
     use super::*;
 
-    use crate::tests::test_exact_neighbors;
+    use crate::knn::tests::test_exact_neighbors;
 
     #[test]
     fn test_exhaustive_index() {

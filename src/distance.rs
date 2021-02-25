@@ -108,7 +108,7 @@ impl<T: Value> Distance for T {
 /// With those implementations available, you could use a [`NearestNeighbors<Gps, PointOfInterest>`]
 /// instance to find the closest point(s) of interest to any GPS location.
 ///
-/// [`NearestNeighbors<Gps, PointOfInterest>`]: super::NearestNeighbors
+/// [`NearestNeighbors<Gps, PointOfInterest>`]: crate::knn::NearestNeighbors
 pub trait Proximity<T: ?Sized = Self> {
     /// The type that represents distances.
     type Distance: Distance;
