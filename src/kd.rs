@@ -9,7 +9,6 @@ use crate::util::Ordered;
 use num_traits::Signed;
 
 use std::iter::FromIterator;
-use std::ops::Deref;
 
 /// A node in a k-d tree.
 #[derive(Debug)]
@@ -158,11 +157,11 @@ where
     }
 
     fn left(self) -> Option<Self> {
-        self.left.as_ref().map(Box::deref)
+        self.left.as_deref()
     }
 
     fn right(self) -> Option<Self> {
-        self.right.as_ref().map(Box::deref)
+        self.right.as_deref()
     }
 }
 

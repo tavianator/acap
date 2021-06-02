@@ -8,7 +8,6 @@ use num_traits::zero;
 
 use std::fmt::{self, Debug, Formatter};
 use std::iter::{Extend, FromIterator};
-use std::ops::Deref;
 
 /// A node in a VP tree.
 #[derive(Debug)]
@@ -171,11 +170,11 @@ where
     }
 
     fn inside(self) -> Option<Self> {
-        self.inside.as_ref().map(Box::deref)
+        self.inside.as_deref()
     }
 
     fn outside(self) -> Option<Self> {
-        self.outside.as_ref().map(Box::deref)
+        self.outside.as_deref()
     }
 }
 
