@@ -6,7 +6,7 @@ use crate::knn::{ExactNeighbors, NearestNeighbors, Neighborhood};
 use std::iter::FromIterator;
 
 /// A [`NearestNeighbors`] implementation that does exhaustive search.
-#[derive(Debug)]
+#[derive(Clone, Debug)]
 pub struct ExhaustiveSearch<T>(Vec<T>);
 
 impl<T> ExhaustiveSearch<T> {
