@@ -198,7 +198,7 @@ impl<T: Proximity> VpTree<T> {
 
     /// Iterate over the items stored in this tree.
     pub fn iter(&self) -> Iter<T> {
-        (&self).into_iter()
+        self.into_iter()
     }
 
     /// Rebalance this VP tree.
@@ -505,7 +505,7 @@ impl<T: Proximity> FlatVpTree<T> {
 
     /// Iterate over the items stored in this tree.
     pub fn iter(&self) -> FlatIter<T> {
-        (&self).into_iter()
+        self.into_iter()
     }
 }
 

@@ -17,7 +17,7 @@ impl<T> ExhaustiveSearch<T> {
 
     /// Iterate over the items stored in this index.
     pub fn iter(&self) -> Iter<T> {
-        (&self).into_iter()
+        self.into_iter()
     }
 
     /// Get the size of this index.

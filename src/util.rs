@@ -19,6 +19,7 @@ impl<T> From<T> for Ordered<T> {
     }
 }
 
+#[allow(clippy::derive_ord_xor_partial_ord)]
 impl<T: PartialOrd> Ord for Ordered<T> {
     fn cmp(&self, other: &Self) -> Ordering {
         self.partial_cmp(other).expect("Comparison between unordered items")

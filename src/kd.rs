@@ -186,7 +186,7 @@ impl<T: Coordinates> KdTree<T> {
 
     /// Iterate over the items stored in this tree.
     pub fn iter(&self) -> Iter<T> {
-        (&self).into_iter()
+        self.into_iter()
     }
 
     /// Rebalance this k-d tree.
@@ -457,7 +457,7 @@ impl<T: Coordinates> FlatKdTree<T> {
 
     /// Iterate over the items stored in this tree.
     pub fn iter(&self) -> FlatIter<T> {
-        (&self).into_iter()
+        self.into_iter()
     }
 }
 
