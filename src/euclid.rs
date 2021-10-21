@@ -7,7 +7,6 @@ use crate::lp::Minkowski;
 use num_traits::zero;
 
 use std::cmp::Ordering;
-use std::convert::TryFrom;
 
 /// A point in Euclidean space.
 ///
@@ -155,7 +154,6 @@ where
 ///
 ///     # use acap::distance::Distance;
 ///     # use acap::euclid::EuclideanDistance;
-///     # use std::convert::TryFrom;
 ///     let a = EuclideanDistance::try_from(3).unwrap();
 ///     let b = EuclideanDistance::try_from(4).unwrap();
 ///     let c = EuclideanDistance::from_squared(a.squared_value() + b.squared_value());

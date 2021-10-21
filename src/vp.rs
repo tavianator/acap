@@ -7,7 +7,6 @@ use crate::util::Ordered;
 use num_traits::zero;
 
 use std::fmt::{self, Debug, Formatter};
-use std::iter::{Extend, FromIterator};
 
 /// A node in a VP tree.
 #[derive(Debug)]

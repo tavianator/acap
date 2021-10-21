@@ -7,7 +7,6 @@ use num_traits::real::Real;
 use num_traits::{one, zero};
 
 use std::cmp::Ordering;
-use std::convert::TryFrom;
 
 /// Compute the [cosine *similarity*] between two points.
 ///
@@ -398,7 +397,6 @@ where
 ///
 ///     # use acap::distance::Distance;
 ///     # use acap::cos::AngularDistance;
-///     # use std::convert::TryFrom;
 ///     let zero = AngularDistance::from_cos(1.0);
 ///     let pi_2 = AngularDistance::from_cos(0.0);
 ///     let pi = AngularDistance::from_cos(-1.0);

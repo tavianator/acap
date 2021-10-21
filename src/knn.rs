@@ -2,8 +2,6 @@
 
 use crate::distance::{Distance, Proximity};
 
-use std::convert::TryInto;
-
 /// A nearest neighbor.
 #[derive(Clone, Copy, Debug)]
 pub struct Neighbor<V, D> {
@@ -352,8 +350,6 @@ pub mod tests {
     use crate::exhaustive::ExhaustiveSearch;
 
     use rand::prelude::*;
-
-    use std::iter::FromIterator;
 
     type Point = Euclidean<[f32; 3]>;
 

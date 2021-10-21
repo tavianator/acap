@@ -3,8 +3,6 @@
 use crate::distance::Proximity;
 use crate::knn::{ExactNeighbors, NearestNeighbors, Neighborhood};
 
-use std::iter::FromIterator;
-
 /// A [`NearestNeighbors`] implementation that does exhaustive search.
 #[derive(Clone, Debug)]
 pub struct ExhaustiveSearch<T>(Vec<T>);

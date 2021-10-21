@@ -8,8 +8,6 @@ use crate::util::Ordered;
 
 use num_traits::Signed;
 
-use std::iter::FromIterator;
-
 /// A node in a k-d tree.
 #[derive(Debug)]
 struct KdNode<T> {

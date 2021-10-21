@@ -8,8 +8,6 @@ use acap::vp::{FlatVpTree, VpTree};
 
 use criterion::{black_box, criterion_group, criterion_main, BatchSize, Criterion};
 
-use std::iter::FromIterator;
-
 type Point = Euclidean<[f32; 3]>;
 
 /// Generates a spiral used as the benchmark data set.
