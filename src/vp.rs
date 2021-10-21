@@ -197,7 +197,7 @@ impl<T: Proximity> VpTree<T> {
     }
 
     /// Iterate over the items stored in this tree.
-    pub fn iter(&self) -> Iter<T> {
+    pub fn iter(&self) -> Iter<'_, T> {
         self.into_iter()
     }
 
@@ -246,7 +246,7 @@ where
     T: Proximity + Debug,
     DistanceValue<T>: Debug,
 {
-    fn fmt(&self, f: &mut Formatter) -> fmt::Result {
+    fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
         f.debug_struct("VpTree")
             .field("root", &self.root)
             .finish()
@@ -295,7 +295,7 @@ where
     T: Proximity + Debug,
     DistanceValue<T>: Debug,
 {
-    fn fmt(&self, f: &mut Formatter) -> fmt::Result {
+    fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
         f.debug_struct("IntoIter")
             .field("stack", &self.stack)
             .finish()
@@ -345,7 +345,7 @@ where
     T: Proximity + Debug,
     DistanceValue<T>: Debug,
 {
-    fn fmt(&self, f: &mut Formatter) -> fmt::Result {
+    fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
         f.debug_struct("Iter")
             .field("stack", &self.stack)
             .finish()
@@ -504,7 +504,7 @@ impl<T: Proximity> FlatVpTree<T> {
     }
 
     /// Iterate over the items stored in this tree.
-    pub fn iter(&self) -> FlatIter<T> {
+    pub fn iter(&self) -> FlatIter<'_, T> {
         self.into_iter()
     }
 }
@@ -514,7 +514,7 @@ where
     T: Proximity + Debug,
     DistanceValue<T>: Debug,
 {
-    fn fmt(&self, f: &mut Formatter) -> fmt::Result {
+    fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
         f.debug_struct("FlatVpTree")
             .field("nodes", &self.nodes)
             .finish()
@@ -535,7 +535,7 @@ where
     T: Proximity + Debug,
     DistanceValue<T>: Debug,
 {
-    fn fmt(&self, f: &mut Formatter) -> fmt::Result {
+    fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
         f.debug_tuple("FlatIntoIter")
             .field(&self.0)
             .finish()
@@ -567,7 +567,7 @@ where
     T: Proximity + Debug,
     DistanceValue<T>: Debug,
 {
-    fn fmt(&self, f: &mut Formatter) -> fmt::Result {
+    fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
         f.debug_tuple("FlatIter")
             .field(&self.0)
             .finish()

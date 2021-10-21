@@ -122,6 +122,8 @@
 //! [`k_nearest_within()`]: knn::NearestNeighbors#method.k_nearest_within
 //! [`ExactNeighbors`]: knn::ExactNeighbors
 
+#![warn(rust_2018_idioms)]
+
 pub mod chebyshev;
 pub mod coords;
 pub mod cos;

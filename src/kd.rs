@@ -185,7 +185,7 @@ impl<T: Coordinates> KdTree<T> {
     }
 
     /// Iterate over the items stored in this tree.
-    pub fn iter(&self) -> Iter<T> {
+    pub fn iter(&self) -> Iter<'_, T> {
         self.into_iter()
     }
 
@@ -456,7 +456,7 @@ impl<T: Coordinates> FlatKdTree<T> {
     }
 
     /// Iterate over the items stored in this tree.
-    pub fn iter(&self) -> FlatIter<T> {
+    pub fn iter(&self) -> FlatIter<'_, T> {
         self.into_iter()
     }
 }

@@ -16,7 +16,7 @@ impl<T> ExhaustiveSearch<T> {
     }
 
     /// Iterate over the items stored in this index.
-    pub fn iter(&self) -> Iter<T> {
+    pub fn iter(&self) -> Iter<'_, T> {
         self.into_iter()
     }
 
