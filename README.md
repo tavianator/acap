@@ -4,7 +4,7 @@
 [![crates.io](https://img.shields.io/crates/v/acap.svg)](https://crates.io/crates/acap)
 [![Documentation](https://docs.rs/acap/badge.svg)](https://docs.rs/acap)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/tavianator/knn/blob/main/LICENSE)
-[![Build Status](https://travis-ci.com/tavianator/acap.svg?branch=main)](https://travis-ci.com/tavianator/acap)
+[![CI Status](https://github.com/tavianator/acap/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/tavianator/acap/actions/workflows/ci.yml)
 
 As Close As Possible — [nearest neighbor search] in Rust.
 
