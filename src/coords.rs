@@ -38,30 +38,17 @@ impl<T: Value> Coordinates for [T] {
 }
 
 /// [`Coordinates`] implementation for arrays.
-macro_rules! array_coordinates {
-    ($n:expr) => {
-        impl<T: Value> Coordinates for [T; $n] {
-            type Value = T;
+impl<T: Value, const N: usize> Coordinates for [T; N] {
+    type Value = T;
 
-            fn dims(&self) -> usize {
-                $n
-            }
+    fn dims(&self) -> usize {
+        N
+    }
 
-            fn coord(&self, i: usize) -> T {
-                self[i]
-            }
-        }
-    };
+    fn coord(&self, i: usize) -> T {
+        self[i]
+    }
 }
-
-array_coordinates!(1);
-array_coordinates!(2);
-array_coordinates!(3);
-array_coordinates!(4);
-array_coordinates!(5);
-array_coordinates!(6);
-array_coordinates!(7);
-array_coordinates!(8);
 
 /// [`Coordinates`] implemention for vectors.
 impl<T: Value> Coordinates for Vec<T> {
