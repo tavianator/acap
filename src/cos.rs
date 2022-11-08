@@ -403,7 +403,7 @@ where
 ///     assert!(zero < pi_2 && pi_2 < pi);
 ///
 /// [angular distance]: https://en.wikipedia.org/wiki/Cosine_similarity#Angular_distance_and_similarity
-#[derive(Clone, Copy, Debug, PartialEq)]
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub struct AngularDistance<T>(T);
 
 impl<T: Real + Value> AngularDistance<T> {

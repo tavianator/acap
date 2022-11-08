@@ -161,7 +161,7 @@ where
 ///     assert_eq!(c.value(), 5.0f32);
 ///
 /// [Euclidean distance]: https://en.wikipedia.org/wiki/Euclidean_distance
-#[derive(Clone, Copy, Debug, PartialEq, PartialOrd)]
+#[derive(Clone, Copy, Debug, Eq, PartialEq, PartialOrd)]
 pub struct EuclideanDistance<T>(T);
 
 impl<T: Value> EuclideanDistance<T> {
