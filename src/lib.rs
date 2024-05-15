@@ -124,6 +124,10 @@
 
 #![warn(rust_2018_idioms)]
 
+#![no_std]
+
+extern crate alloc;
+
 pub mod chebyshev;
 pub mod coords;
 pub mod cos;

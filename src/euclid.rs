@@ -4,9 +4,10 @@ use crate::coords::Coordinates;
 use crate::distance::{Distance, Metric, Proximity, Value};
 use crate::lp::Minkowski;
 
+use num_traits::real::Real;
 use num_traits::zero;
 
-use std::cmp::Ordering;
+use core::cmp::Ordering;
 
 /// A point in Euclidean space.
 ///
@@ -200,7 +201,7 @@ macro_rules! float_distance {
         impl From<EuclideanDistance<$f>> for $f {
             #[inline]
             fn from(value: EuclideanDistance<$f>) -> $f {
-                value.0.sqrt()
+                Real::sqrt(value.0)
             }
         }
 
@@ -268,7 +269,7 @@ macro_rules! int_distance {
         impl From<EuclideanDistance<$i>> for $f {
             #[inline]
             fn from(value: EuclideanDistance<$i>) -> Self {
-                (value.0 as $ff).sqrt() as $f
+                Real::sqrt(value.0 as $ff) as $f
             }
         }
 

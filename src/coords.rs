@@ -2,6 +2,8 @@
 
 use crate::distance::Value;
 
+use alloc::vec::Vec;
+
 /// A coordinate space.
 pub trait Coordinates {
     /// The type of individual coordinates.

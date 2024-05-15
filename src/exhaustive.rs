@@ -3,6 +3,8 @@
 use crate::distance::Proximity;
 use crate::knn::{ExactNeighbors, NearestNeighbors, Neighborhood};
 
+use alloc::vec::Vec;
+
 /// A [`NearestNeighbors`] implementation that does exhaustive search.
 #[derive(Clone, Debug)]
 pub struct ExhaustiveSearch<T>(Vec<T>);
@@ -48,7 +50,7 @@ impl<T> FromIterator<T> for ExhaustiveSearch<T> {
 
 /// An iterator that moves values out of an exhaustive index.
 #[derive(Debug)]
-pub struct IntoIter<T>(std::vec::IntoIter<T>);
+pub struct IntoIter<T>(alloc::vec::IntoIter<T>);
 
 impl<T> Iterator for IntoIter<T> {
     type Item = T;
@@ -69,7 +71,7 @@ impl<T> IntoIterator for ExhaustiveSearch<T> {
 
 /// An iterator over the values in an exhaustive index.
 #[derive(Debug)]
-pub struct Iter<'a, T>(std::slice::Iter<'a, T>);
+pub struct Iter<'a, T>(core::slice::Iter<'a, T>);
 
 impl<'a, T> Iterator for Iter<'a, T> {
     type Item = &'a T;

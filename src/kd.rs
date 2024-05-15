@@ -8,6 +8,9 @@ use crate::util::Ordered;
 
 use num_traits::Signed;
 
+use alloc::boxed::Box;
+use alloc::vec::Vec;
+
 /// A node in a k-d tree.
 #[derive(Debug)]
 struct KdNode<T> {
@@ -467,7 +470,7 @@ impl<T: Coordinates> FromIterator<T> for FlatKdTree<T> {
 
 /// An iterator that moves values out of a flat k-d tree.
 #[derive(Debug)]
-pub struct FlatIntoIter<T>(std::vec::IntoIter<FlatKdNode<T>>);
+pub struct FlatIntoIter<T>(alloc::vec::IntoIter<FlatKdNode<T>>);
 
 impl<T> Iterator for FlatIntoIter<T> {
     type Item = T;
@@ -488,7 +491,7 @@ impl<T> IntoIterator for FlatKdTree<T> {
 
 /// An iterator over the values in a flat k-d tree.
 #[derive(Debug)]
-pub struct FlatIter<'a, T>(std::slice::Iter<'a, FlatKdNode<T>>);
+pub struct FlatIter<'a, T>(core::slice::Iter<'a, FlatKdNode<T>>);
 
 impl<'a, T> Iterator for FlatIter<'a, T> {
     type Item = &'a T;

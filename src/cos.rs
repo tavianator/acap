@@ -6,7 +6,7 @@ use crate::distance::{Distance, Metric, Proximity, Value};
 use num_traits::real::Real;
 use num_traits::{one, zero};
 
-use std::cmp::Ordering;
+use core::cmp::Ordering;
 
 /// Compute the [cosine *similarity*] between two points.
 ///
@@ -436,7 +436,7 @@ macro_rules! impl_distance {
 
             #[inline]
             fn try_from(value: $f) -> Result<Self, Self::Error> {
-                if value >= 0.0 && value <= std::$f::consts::PI {
+                if value >= 0.0 && value <= core::$f::consts::PI {
                     Ok(Self(value.cos()))
                 } else {
                     Err(InvalidAngleError)
@@ -492,7 +492,7 @@ impl_distance!(f64);
 mod tests {
     use super::*;
 
-    use std::f64::consts::{FRAC_PI_2, FRAC_PI_4, PI, SQRT_2};
+    use core::f64::consts::{FRAC_PI_2, FRAC_PI_4, PI, SQRT_2};
 
     #[test]
     fn test_cosine() {

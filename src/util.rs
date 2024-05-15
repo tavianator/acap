@@ -1,6 +1,6 @@
 //! Internal utilities.
 
-use std::cmp::Ordering;
+use core::cmp::Ordering;
 
 /// A wrapper that converts a partial ordering into a total one by panicking.
 #[derive(Clone, Copy, Debug, PartialOrd)]

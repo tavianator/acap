@@ -4,9 +4,12 @@ use crate::distance::{Distance, DistanceValue, Metric, Proximity};
 use crate::knn::{ExactNeighbors, NearestNeighbors, Neighborhood};
 use crate::util::Ordered;
 
+use alloc::boxed::Box;
+use alloc::vec::Vec;
+
 use num_traits::zero;
 
-use std::fmt::{self, Debug, Formatter};
+use core::fmt::{self, Debug, Formatter};
 
 /// A node in a VP tree.
 #[derive(Debug)]
@@ -527,7 +530,7 @@ impl<T: Proximity> FromIterator<T> for FlatVpTree<T> {
 }
 
 /// An iterator that moves values out of a flat VP tree.
-pub struct FlatIntoIter<T: Proximity>(std::vec::IntoIter<FlatVpNode<T>>);
+pub struct FlatIntoIter<T: Proximity>(alloc::vec::IntoIter<FlatVpNode<T>>);
 
 impl<T> Debug for FlatIntoIter<T>
 where
@@ -559,7 +562,7 @@ impl<T: Proximity> IntoIterator for FlatVpTree<T> {
 }
 
 /// An iterator over the values in a flat VP tree.
-pub struct FlatIter<'a, T: Proximity>(std::slice::Iter<'a, FlatVpNode<T>>);
+pub struct FlatIter<'a, T: Proximity>(core::slice::Iter<'a, FlatVpNode<T>>);
 
 impl<'a, T> Debug for FlatIter<'a, T>
 where

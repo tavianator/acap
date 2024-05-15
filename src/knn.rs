@@ -2,6 +2,8 @@
 
 use crate::distance::{Distance, Proximity};
 
+use alloc::vec::Vec;
+
 /// A nearest neighbor.
 #[derive(Clone, Copy, Debug)]
 pub struct Neighbor<V, D> {
@@ -350,6 +352,8 @@ pub mod tests {
     use crate::exhaustive::ExhaustiveSearch;
 
     use rand::prelude::*;
+
+    use alloc::vec;
 
     type Point = Euclidean<[f32; 3]>;
 
