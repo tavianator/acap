@@ -1,6 +1,6 @@
 [package]
 name = "acap"
-version = "0.3.0"
+version = "0.4.0"
 authors = ["Tavian Barnes <tavianator@tavianator.com>"]
 edition = "2021"
 description = "As Close As Possible — nearest neighbor search in Rust."
