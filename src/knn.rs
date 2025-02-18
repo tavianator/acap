@@ -351,7 +351,7 @@ pub mod tests {
     use crate::euclid::{Euclidean, EuclideanDistance};
     use crate::exhaustive::ExhaustiveSearch;
 
-    use rand::prelude::*;
+    use rand::random;
 
     use alloc::vec;
 
